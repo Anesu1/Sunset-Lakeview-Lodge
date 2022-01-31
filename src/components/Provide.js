@@ -138,12 +138,12 @@ function Provide() {
             We provide the best <br /> services 24/7 <br className='br'/> to satisfy <br /> our clients
           </Heading>
           <div className="img">
-            <img src="./imgs/provideone.png" alt="" />
+            <img src="./imgs/BedroomsMainhouse/BedRoomLakeview1Bild2.JPG" alt="" />
             <Box large="Book With Us" linkText="Get In Touch" />
           </div>
         </div>
         <div className="provide-item">
-          <img src="./imgs/providetwo.png" alt="" />
+          <img src="./imgs/HP Sunsetlakeview/HP Sunsetlakeview/Garden/sunset1.jpg" alt="" />
           <Box large={`Work With Us`} linkText="Get In Touch" />
         </div>
       </ProvideWrapper>

@@ -71,7 +71,7 @@ const ContactWrapper = styled.section`
 
 function Contact() {
   return (
-    <ContactWrapper>
+    <ContactWrapper id="contact">
       <div className="contact-inner">
         <div className="contact-item">
           <h3>Our Address</h3>

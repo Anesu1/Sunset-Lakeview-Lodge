@@ -77,11 +77,11 @@ function Best() {
     return (
         <Wrapper>
             <div className="inner">
-                <img src="./imgs/bestone.png" alt="" />
+                <img src="./imgs/HP Sunsetlakeview/HP Sunsetlakeview/Pool/ChildrenPool.jpg" alt="" />
             </div>
             <div className="best-inner">
                 <Heading>The Best Luxury Real <br /> Estate in Kariba</Heading>
-                <img src="./imgs/besttwo.png" alt="" />
+                <img src="./imgs/HP Sunsetlakeview/HP Sunsetlakeview/Pool/Pool2.jpg" alt="" />
                 <Box small="Place" medium="816 Mica Point Kariba"/>
             </div>
         </Wrapper>

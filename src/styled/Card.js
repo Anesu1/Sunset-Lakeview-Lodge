@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 
 const CardWrapper = styled.div`
-    background:linear-gradient(to bottom, rgba(0, 0, 0, 0.25),rgba(0, 0, 0, 0.25)), url("./imgs/${props => props.background}");
+    background:linear-gradient(to bottom, rgba(0, 0, 0, 0.25),rgba(0, 0, 0, 0.25)), url("${props => props.background}");
     background-size:cover;
     height:580px;
     display:flex;

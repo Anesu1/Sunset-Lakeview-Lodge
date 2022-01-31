@@ -42,7 +42,7 @@ const AboutWrapper = styled.section`
 
 function About() {
   return (
-    <AboutWrapper>
+    <AboutWrapper id="about">
       <Heading>About Us</Heading>
       <div className="about">
       <div className="about-inner">

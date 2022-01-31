@@ -1,5 +1,7 @@
 import React from 'react';
 import Cards from '../components/Cards';
+import Contact from '../components/Contact';
+import Footer from '../components/Footer';
 import Gallery from '../components/Gallery';
 import Amenities from '../components/rooms/Amenities';
 import BannerRooms from '../components/rooms/BannerRooms';
@@ -15,7 +17,8 @@ function RoomsPage() {
       <Gallery />
        <OtherRooms /> 
        <Cards />
-      
+       <Contact />
+      <Footer />
       </>
   )
 }

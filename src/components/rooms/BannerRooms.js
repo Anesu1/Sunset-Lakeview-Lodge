@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, animateScroll as scroll } from "react-scroll";
 import {TiArrowBack} from 'react-icons/ti';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 const WrapperBanner = styled.section`
   height:100vh;
-  background:url("./imgs/roomone.png");
+  background:linear-gradient(to bottom,#33333378,#33333378), url("${props => props.bgImage}");
   background-size:cover;
   position:relative;
   background-position:center center;
@@ -65,9 +66,15 @@ const WrapperBanner = styled.section`
       display:block;
       padding:20px 7px;
       font-size:13px;
+      cursor:pointer;
+
+      transition:all 0.7s ease-in-out;
       text-transform:uppercase;
       text-decoration:none;
       color:#ffffff;
+      &:hover{
+        color:#cccccce6;
+      }
       @media(min-width:768px){
         font-size:15px;
       }
@@ -75,18 +82,30 @@ const WrapperBanner = styled.section`
   }
 `
 
-function BannerRooms() {
+function BannerRooms({bgImage, roomName, subtitle}) {
   return (
-    <WrapperBanner>
-      <Link to="/" className='back'><TiArrowBack /> Home</Link>
+    <WrapperBanner bgImage={bgImage}>
+      <NavLink to="/" className='back'><TiArrowBack /> Home</NavLink>
       <div className="banner-item">
-        <h1>Executive Rooms </h1>
-        <p>GREAT FOR BUSINESS TRIP</p>
+        <h1>{roomName}</h1>
+        <p>{subtitle}</p>
       </div>
       <div className="links">
-        <Link to="/">detail</Link>
-        <Link to="/">AMENITIES & SERVICES</Link>
-        <Link to="/">Gallery</Link>
+        <Link  to="details"
+              activeClass="active"
+              spy={true}
+              smooth={true}
+              duration={500}>details</Link>
+        <Link  to="amenities"
+              activeClass="active"
+              spy={true}
+              smooth={true}
+              duration={500}>AMENITIES & SERVICES</Link>
+        <Link  to="gallery"
+              activeClass="active"
+              spy={true}
+              smooth={true}
+              duration={500}>Gallery</Link>
       </div>
     </WrapperBanner>
   );

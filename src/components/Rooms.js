@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react'
+import {RoomContext} from '../context'
+import Loading from "./Loading"
 import styled from 'styled-components';
 import Room from '../styled/Room';
+
 
 const RoomsWrapper = styled.section`
 margin-top:50px;
@@ -12,15 +15,37 @@ margin-top:50px;
     }
 `
 
-function Rooms() {
+// function Rooms() {
+    
+//     return (
+//         <RoomsWrapper>
+
+//             <Room link="/rooms" imgBg="./imgs/HP Sunsetlakeview/HP Sunsetlakeview/Cottage/TerraceCottage.jpg" onHoverImg="./imgs/HP Sunsetlakeview/HP Sunsetlakeview/Cottage/RoomCottage.JPG" amount="250" roomName="Cottages" />
+//             <Room link="/rooms" imgBg="./imgs/BedroomsMainhouse/Deluxe/DeluxRoomLakeview2.jpg" onHoverImg="./imgs/BedroomsMainhouse/Deluxe/DeluxRoomLakeview1Bild1a.jpg" amount="220" roomName="Deluxe Room"  />
+//             <Room link="/rooms" imgBg="./imgs/BedroomsMainhouse/Twin/TwinRoom.jpg" onHoverImg="./imgs/BedroomsMainhouse/Twin/TwinRoomBath.jpg" amount="180" roomName="Twin Room"  />
+//             <Room link="/rooms" imgBg="./imgs/BedroomsMainhouse/Exc/ExecutivRoomBild2.jpg" onHoverImg="./imgs/BedroomsMainhouse/Exc/ExecutivRoomBild1.jpg" amount="110" roomName="Executive Rooms" l/>
+//         </RoomsWrapper>
+//     )
+// }
+
+
+
+
+export default class FeaturedRooms extends Component {
+    static contextType = RoomContext;
+    render() {
+        let {loading, featuredRooms: rooms} = this.context;
+        
+        rooms = rooms.map(room =>{
+            return <Room key={room.id} room={room}/>
+        })
     return (
-        <RoomsWrapper>
-            <Room link="/roomsPage" imgBg="roomone.png" onHoverImg="roomfour.png" amount="250" roomName="Executive Rooms" />
-            <Room link="/roomsPage" imgBg="roomtwo.png" onHoverImg="roomone.png" amount="220" roomName="Deluxe Room"  />
-            <Room link="/roomsPage" imgBg="roomthree.png" onHoverImg="roomtwo.png" amount="180" roomName="Twin Room"  />
-            <Room link="/roomsPage" imgBg="roomfour.png" onHoverImg="roomthree.png" amount="110" roomName="Cottages" l/>
-        </RoomsWrapper>
+      <RoomsWrapper id="rooms">
+        
+        {loading ? <Loading />: rooms}
+    
+      </RoomsWrapper>
     )
+  }
 }
 
-export default Rooms

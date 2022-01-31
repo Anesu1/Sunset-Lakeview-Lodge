@@ -1,6 +1,9 @@
 import React from "react";
 import Paragraph from "../../styled/Paragraph";
 import styled from 'styled-components';
+import iconbed from '../../images/icon_bed 1.png'
+import iconpeople from '../../images/icon_people 1.png'
+import iconview from '../../images/icon_view 1.png'
 
 const WrapperBook = styled.section`
   padding:5%;
@@ -49,7 +52,7 @@ const WrapperBook = styled.section`
       text-align:center;
     }
     img{
-      width:90px;
+      width:70px;
     }
   }
   .book-item{
@@ -93,43 +96,40 @@ const WrapperBook = styled.section`
   }
 `
 
-function BookNow() {
+function BookNow({description, descriptionone, price, view, bedType, adults}) {
   return (
-    <WrapperBook>
+    <WrapperBook id="details">
       <div className="book">
       <div className="book-inner">
         <h3>
+       
           Great choice for a relaxing vacation for families with children or a
           group of friends.
         </h3>
         <Paragraph>
-          Our comfortable Executive rooms is just the right size if you are
-          travelling with your partner. Similar to all other rooms in the lodge,
-          the Executive is fully equipped with all comforts.
+          {description}
         </Paragraph>
         <Paragraph>
-          In addition to the lounge the room is equipped with exciting
-          amenities. The rooms offers all the space and comforts your need
-          during your stay in our lodge.
+          {descriptionone}
         </Paragraph>
         <div className="icons">
             <div className="icon-inner">
-                <img src="./imgs/icon_bed 1.png" alt="" />
-                <p>King Sized Bed</p>
+                <img src={iconbed} alt="" />
+                <p>{bedType}</p>
             </div>
             <div className="icon-inner">
-                <img src="./imgs/icon_people 1.png" alt="" />
-                <p>2 Adults</p>
+                <img src={iconpeople} alt="" />
+                <p>{adults} Adults</p>
             </div>
             <div className="icon-inner">
-                <img src="./imgs/icon_view 1.png" alt="" />
-                <p>Lake view and sunset</p>
+                <img src={iconview} alt="" />
+                <p>{view}</p>
             </div>
         </div>
       </div>
       <div className="book-item">
           <p>starting from</p>
-          <h3>$250</h3>
+          <h3>${price}</h3>
           <button>Book Now</button>
       </div>
       </div>

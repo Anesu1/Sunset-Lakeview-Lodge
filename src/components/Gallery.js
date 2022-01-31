@@ -2,6 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
 import {IoIosArrowDroprightCircle, IoIosArrowDropleftCircle} from 'react-icons/io'
+import gallerya from '../images/gallery/gallery (1).jpg'
+import galleryb from '../images/gallery/gallery (2).jpg'
+import galleryc from '../images/gallery/gallery (3).jpg'
+import galleryd from '../images/gallery/gallery (4).jpg'
+import gallerye from '../images/gallery/gallery (5).jpg'
+import galleryf from '../images/gallery/gallery (6).jpg'
+import galleryg from '../images/gallery/gallery (7).jpg'
+import galleryh from '../images/gallery/gallery (8).jpg'
+import galleryi from '../images/gallery/gallery (9).jpg'
 
 const GalleryWrapper = styled.section`
   overflow: hidden;
@@ -12,7 +21,7 @@ const GalleryWrapper = styled.section`
   img {
     height: 300px;
     @media(min-width:768px){
-        height:600px;
+        height:500px;
     }
   }
   .slick-slider{
@@ -62,10 +71,15 @@ function Gallery() {
   return (
     <GalleryWrapper>
       <Slider {...settings}>
-        <img src="./imgs/slide1.png" alt="" />
-        <img src="./imgs/slide2.png" alt="" />
-
-        <img src="./imgs/slide3.png" alt="" />
+        <img src={gallerya} alt="" />
+        <img src={galleryb} alt="" />
+        <img src={galleryc} alt="" />
+        <img src={galleryd} alt="" />
+        <img src={gallerye} alt="" />
+        <img src={galleryf} alt="" />
+        <img src={galleryg} alt="" />
+        <img src={galleryh} alt="" />
+        <img src={galleryi} alt="" />
       </Slider>
     </GalleryWrapper>
   );

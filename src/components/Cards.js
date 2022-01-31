@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import Card from "../styled/Card";
 import Slider from "react-slick";
+import cardone from '../images/Breakfast.JPG'
+import cardtwo from '../images/Fishing2.jpg'
+import cardthree from '../images/cardthree.png'
+import cardfour from '../images/Lounge2..jpg'
 
 const CardsWrapper = styled.section`
   overflow: hidden;
@@ -93,10 +97,10 @@ function Cards() {
   return (
     <CardsWrapper>
       <Slider {...settings}>
-        <Card imgUrl="cardone.png" title="BreakFast" link />
-        <Card imgUrl="cardtwo.png" title="Activities" link />
-        <Card imgUrl="cardthree.png" title="Housekeeping" link />
-        <Card imgUrl="cardfour.png" title="Lounge" link />
+        <Card imgUrl={cardone} title="BreakFast" link />
+        <Card imgUrl={cardtwo} title="Activities" link />
+        <Card imgUrl={cardthree} title="Housekeeping" link />
+        <Card imgUrl={cardfour} title="Lounge" link />
       </Slider>
     </CardsWrapper>
   );

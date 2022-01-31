@@ -1,21 +1,23 @@
 import "./App.css";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Contact from "./components/Contact";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import RoomsPage from "./pages/RoomsPage";
+import SingleRoom from './pages/SingleRoom'
+import Error from "./pages/Error";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
+  
   return (
     <Router>
-      
+      <ScrollToTop>
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/roomsPage" component={RoomsPage} />
+        <Route path="/rooms" exact component={SingleRoom} />
+        <Route path="/rooms/:slug" exact component={SingleRoom}/>
+        <Route component={Error} />
       </Switch>
-      <Contact />
-      <Footer />
+      </ScrollToTop>
     </Router>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {FaChevronRight} from 'react-icons/fa'
+import amenities from '../../images/amenities.png'
 
 const Wrapper = styled.section`
     background:${props => props.theme.color.green};
@@ -53,9 +54,9 @@ const Wrapper = styled.section`
 
 function Amenities() {
   return (
-      <Wrapper>
+      <Wrapper id="amenities">
           <div className="imgs">
-              <img src="./imgs/amenities.png" alt="" />
+              <img src={amenities} alt="" />
               <h3>Amenities & Services</h3>
           </div>
           <div className="amenities-inner">

@@ -1,9 +1,13 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import hoverEffect from "hover-effect";
+import fluid from '../images/fluid.jpg'
+
 
 const RoomWrapper = styled.div`
-    background:url("./imgs/${props => props.imgBg}");
+    background:url("./imgs/${props => props.mgBg}");
     background-size:cover;
     width:100%;
     position:relative;
@@ -15,6 +19,14 @@ const RoomWrapper = styled.div`
   }
   @media(min-width:1200px){
       height:650px;
+  }
+  .bg{
+    background:#00000057;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
   }
     .top-text{
         padding:10%;
@@ -41,7 +53,7 @@ const RoomWrapper = styled.div`
    
 
   &:hover{
-      background:url("./imgs/${props => props.onHoverImg}");
+      background:url("./imgs/${props => props.oHoverImg}");
       background-size:cover;
       a{
           transform:translateX(0);
@@ -94,6 +106,7 @@ const RoomWrapper = styled.div`
   }
 }
 .top-text{
+  position:absolute;
     p{
         font-family:${props => props.theme.fam.renner};
         color:#ffffff;
@@ -116,16 +129,34 @@ const RoomWrapper = styled.div`
 
   
 
-function Room({amount, roomName, link, imgBg, onHoverImg}) {
+function Room({room}) {
+  const {name, slug, images, price} = room;
+  const container = useRef();
+  useEffect(() => {
+    console.log(container.current);
+
+    new hoverEffect({
+      parent: container.current,
+      intensity: 0.3,
+      image1: images[0],
+      image2: images[1],
+      displacementImage:fluid
+    });
+  }, [container]);
     return (
-        <RoomWrapper imgBg={imgBg} onHoverImg={onHoverImg} className='room-inner'>
+        <RoomWrapper className="parent room-inner"
+        // id="imgContainer"
+        ref={container}
+         >
+           <div className="bg"></div>
             <div className="top-text">
-                <p>From: ${amount} per night</p>
-                <h3>{roomName}</h3>
+                <p>From: ${price} per night</p>
+                <h3>{name}</h3>
             </div>
-            <Link to={link}>Book Now</Link>
-            <div class="glow-wrap">
-    <i class="glow"></i>
+          
+            <Link to={`/rooms/${slug}`}>Book Now</Link>
+            <div className="glow-wrap">
+    <i className="glow"></i>
   </div>
         </RoomWrapper>
     )

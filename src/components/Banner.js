@@ -2,9 +2,10 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import Box from "../styled/Box";
+import Fade from 'react-reveal/Fade';
 
 const BannerWrapper = styled.section`
-  background:linear-gradient(to bottom, rgba(44, 65, 60, 0.3),rgba(44, 65, 60, 0.3)), url("./imgs/hero.png");
+  background:linear-gradient(to bottom, rgba(44, 65, 60, 0.3),rgba(44, 65, 60, 0.3)), url("./imgs/HP Sunsetlakeview/HP Sunsetlakeview/Mainhouse/Mainhouse.jpg");
   background-size:cover;
   height:100vh;
   display:flex;
@@ -75,9 +76,10 @@ function Banner() {
   }, [])
   return (
     <BannerWrapper style={{ transform:`transformY(${offsetY * 0.2}px)`}}>
-
-      <h1 style={{ transform:`transformY(${offsetY * 0.8}px)`}}>Discover the <br /> Touch of Nature</h1>
-      <a href="#" style={{ transform:`transformY(${offsetY * 0.8}px)`}}>Find out more</a>
+      <Fade bottom>
+        <h1>Discover the <br /> Touch of Nature</h1></Fade>
+      <a href="#" >Find out more</a>
+      
       <Box  small="place" text="Our Lodge is an ultimate boutique facility and is located high up on the peninsula Micapoint between the dam of the lake Kariba and the center of Kariba Village next over the western part of the Nationalpark."/>
     </BannerWrapper>
   );
