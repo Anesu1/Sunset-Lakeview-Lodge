@@ -12,7 +12,7 @@ import {RoomContext} from '../context'
 
 export default class SingleRoom extends Component {
   constructor(props){
-    super(props)
+    super(props) 
     this.state = {
       slug: this.props.match.params.slug,
       defaultBg:"",
@@ -21,9 +21,9 @@ export default class SingleRoom extends Component {
   }
   static contextType = RoomContext;
 
-  // componentDidMount(){
-
-  // }
+  componentDidMount(){
+        this.context.setRoom(this.props.match.params.slug)
+  }
 
   render() {
     const {getRoom} = this.context;
