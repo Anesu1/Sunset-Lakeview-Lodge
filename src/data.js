@@ -32,29 +32,21 @@ export default [
       name: "Executive Suite",
       slug: "executive-suite",
       subtitle:"GREAT FOR BUSINESS TRIP",
-      type: "single",
       price: 150,
-      size: 250,
       adults:'2',
+      beds:'1',
+      kids:'1',
       amenities:[
         'Air Conditioning', 'Fan', 'Free Parking', 'Free Wifi', 'Mini Bar', 'Room Service', 'Smart Tv', 'Swimming Pool'
       ],
       view:'Lake view and sunset',
       bedType:'King size bed',
-      breakfast: false,
       featured: true,
       description:
       "Our comfortable Executive rooms is just the right size if you are travelling with your partner. Similar to all other rooms in the lodge, the Executive is fully equipped with all comforts.",
     descriptionone:" In addition to the lounge the room is equipped with exciting amenities. The rooms offers all the space and comforts your need during your stay in our lodge",
-     extras: [
-        "Plush pillows and breathable bed linens",
-        "Soft, oversized bath towels",
-        "Full-sized, pH-balanced toiletries",
-        "Complimentary refreshments",
-        "Adequate safety/security",
-        "Internet",
-        "Comfortable beds"
-      ],
+    
+      featImg:exeone,
       images: [
         {
           fields: {
@@ -88,10 +80,10 @@ export default [
       name: "Deluxe Room",
       slug: "deluxe-room",
       subtitle:"GREAT FOR BUSINESS TRIP",
-      type: "single",
       price: 250,
-      size: 300,
-      adults:'2',
+      adults:'4',
+      beds:'1',
+      kids:'2',
       amenities:[
         'Air Conditioning', 'Fan', 'Free Parking', 'Free Wifi', 'Mini Bar', 'Room Service', 'Smart Tv', 'Swimming Pool'
       ],
@@ -99,8 +91,7 @@ export default [
       bedType:'King size bed',
       breakfast: false,
       featured: true,
-      description:
-        "Our Deluxe Rooms are elegantly styled and is perfect for two people. Designed in an open concept living area.It has a lot of room facilities. The bathrooms are bright in cream marble with walk in shower separate bath and toilet",
+      description:"",
      descriptionone:"",
         extras: [
         "Plush pillows and breathable bed linens",
@@ -111,6 +102,7 @@ export default [
         "Internet",
         "Comfortable beds"
       ],
+      featImg:deluxone,
       images: [
         {
           fields: {
@@ -155,6 +147,8 @@ export default [
       price: 300,
       size: 400,
       adults:'2',
+      beds:'2',
+      kids:'1',
       amenities:[
         'Air Conditioning', 'Fan', 'Free Parking', 'Free Wifi', 'Mini Bar', 'Room Service', 'Smart Tv', 'Swimming Pool'
       ],
@@ -174,6 +168,7 @@ export default [
         "Internet",
         "Comfortable beds"
       ],
+      featImg:twinone,
       images: [
         {
           fields: {
@@ -259,6 +254,9 @@ export default [
       type: "single",
       price: 100,
       size: 200,
+      adults:'2',
+      beds:'2',
+      kids:'3',
       capacity: 1,
       pets: false,
       breakfast: false,
@@ -275,6 +273,7 @@ export default [
         "Internet",
         "Comfortable beds"
       ],
+      featImg:cottageone,
       images: [
         {
           fields: {

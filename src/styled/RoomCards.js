@@ -71,7 +71,7 @@ function RoomCards({roomName, imageName, beds, adults, kids, amount}) {
   return (
       <Wrapper>
         <div className="img">
-          <img src={`./imgs/${imageName}`} alt="" />
+          <img src={imageName} alt="" />
         </div>
         <h3>{roomName}</h3>
         <div className="qty">

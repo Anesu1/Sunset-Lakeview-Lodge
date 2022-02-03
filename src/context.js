@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import items from './data'
+// import items from './data'
+import Client from './Contentful'
+
+
 
 const RoomContext = React.createContext();
 
@@ -13,26 +16,29 @@ class RoomProvider extends Component {
      slug:'' 
     }
 
+
     //getData
-    componentDidMount(){
-      let rooms = this.formatData(items)
+getData = async () =>{
+  try {
+    let response = await Client.getEntries();
+    console.log(response)
+    let rooms = this.formatData(response.items);
       let featuredRooms = rooms.filter(room => room.featured)
       this.setState({
-        rooms, featuredRooms, sortedRooms:rooms, loading:false,slug:''
+        rooms, featuredRooms, loading:false,slug:''
       })
+  } catch (error){
+    console.log(error)
+  }
+}
+
+    componentDidMount(){
+      this.getData()
+      
     }
 
 
-    formatData(items){
-      let tempItems = items.map((item) =>{
-        let id = item.sys.id
-        let images = item.fields.images.map((image) => image.fields.file.url)
-     
-        let room = {...item.fields, images, id}
-        return room;
-      })
-      return tempItems
-    }
+    
     setRoom = (slug) => {
       this.setState({
         ...this.state,
@@ -42,12 +48,26 @@ class RoomProvider extends Component {
       
       
     }
-    getRoom = (slug) => {
-     
-      let tempRooms = [...this.state.rooms];
-      const room = tempRooms.find((room) => room.slug === slug)
-      return room;
+    formatData(items) {
+      let tempItems = items.map(item => {
+        let id = item.sys.id;
+        let images = item.fields.images.map(image => image.fields.file.url);
+  
+        let room = { ...item.fields, images, id };
+        return room;
+      });
+      return tempItems;
     }
+    getRoom = slug => {
+      let tempRooms = [...this.state.rooms];
+      const room = tempRooms.find(room => room.slug === slug);
+      return room;
+    };
+
+    // let tempRooms = [...rooms];
+    // if(type !== 'all'){
+    //   tempItems = tempRooms.filter( room => room.type === type)
+    // }
 
 
   render() {
