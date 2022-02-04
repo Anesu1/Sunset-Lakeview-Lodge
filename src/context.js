@@ -52,8 +52,8 @@ getData = async () =>{
       let tempItems = items.map(item => {
         let id = item.sys.id;
         let images = item.fields.images.map(image => image.fields.file.url);
-  
-        let room = { ...item.fields, images, id };
+        let imagefeat = item.fields.featImg.fields.file.url;
+        let room = { ...item.fields, images,imagefeat, id };
         return room;
       });
       return tempItems;

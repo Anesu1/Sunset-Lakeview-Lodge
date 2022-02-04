@@ -34,16 +34,16 @@ export default class SingleRoom extends Component {
         <Link to="/">Go back home</Link>
       </div>
     }
-    const {name, subtitle, description,descriptionone,price,  images, adults, view, bedType} = room;
+    const {roomName, subtitle, desc,descr_one,price, slug, images, adults, view, bedType} = room;
     const [mainImg, ...defaultImg] = images;
     return (
       <>
-        <BannerRooms  bgImage={images[0]} roomName={name} subtitle={subtitle}/>
-        <BookNow description={description} descriptionone={descriptionone} price={price} adults={adults} view={view} bedType={bedType}/>
+        <BannerRooms  bgImage={images[0]} roomName={roomName} subtitle={subtitle}/>
+        <BookNow description={desc} descriptionone={descr_one} price={price} adults={adults} view={view} bedType={bedType}/>
        <Amenities />
         <Gallery>
           {defaultImg.map((item,i) =>{
-            return <img src={item} key={i} alt={name} />
+            return <img src={item} key={i} alt={roomName} />
           })}
        </Gallery>
       <OtherRooms />

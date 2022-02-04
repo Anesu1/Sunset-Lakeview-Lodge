@@ -69,7 +69,7 @@ function OtherRooms() {
         <p className='p'>could also be interest for you</p>
         <div className="cards">
           {featuredRooms.map((item, i)=>{
-            return <RoomCards key={i} roomName={item.name} amount={item.price} kids={item.kids} adults={item.adults} beds={item.beds} imageName={item.featImg.fields.file.url}/>
+            return <RoomCards key={i} roomName={item.roomName} amount={item.price} kids={item.kids} adults={item.adults} beds={item.beds} imageName={item.imagefeat}/>
           })}
         </div>
       </Wrapper>

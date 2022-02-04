@@ -130,7 +130,7 @@ const RoomWrapper = styled.div`
   
 
 function Room({room}) {
-  const {name, slug, images, price} = room;
+  const {roomName, slug, images, price} = room;
   const container = useRef();
   useEffect(() => {
     console.log(container.current);
@@ -139,8 +139,8 @@ function Room({room}) {
       parent: container.current,
       intensity: 0.3,
       image1: images[0],
+      displacementImage:fluid,
       image2: images[1],
-      displacementImage:fluid
     });
   }, [container]);
     return (
@@ -151,8 +151,9 @@ function Room({room}) {
            <div className="bg"></div>
             <div className="top-text">
                 <p>From: ${price} per night</p>
-                <h3>{name}</h3>
+                <h3>{roomName}</h3>
             </div>
+                
           
             <Link to={`/rooms/${slug}`}>Book Now</Link>
             <div className="glow-wrap">
