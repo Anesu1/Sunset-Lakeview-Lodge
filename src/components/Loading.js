@@ -1,12 +1,20 @@
 import React from 'react'
-import loadingGif from '../images/gif/loading-arrow.gif'
+import loadingGif from '../images/gif/spinner.gif'
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+`
 
 function Loading() {
   return (
-    <div>
-      <h4>rooms data loading...</h4>
+    <Wrapper>
+      
       <img src={loadingGif} alt="" />
-    </div>
+    </Wrapper>
   )
 }
 

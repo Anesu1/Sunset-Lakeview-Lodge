@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import iconbed from '../../images/icon_bed 1.png'
 import iconpeople from '../../images/icon_people 1.png'
 import iconview from '../../images/icon_view 1.png'
+import {Link} from 'react-router-dom';
 
 const WrapperBook = styled.section`
   padding:5%;
@@ -130,7 +131,7 @@ function BookNow({description, descriptionone, price, view, bedType, adults}) {
       <div className="book-item">
           <p>starting from</p>
           <h3>${price}</h3>
-          <button>Book Now</button>
+         <Link to="/booknow"><button>Book Now</button></Link>
       </div>
       </div>
      

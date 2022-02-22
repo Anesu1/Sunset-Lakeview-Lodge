@@ -4,7 +4,7 @@ import Card from "../styled/Card";
 import Slider from "react-slick";
 import cardone from '../images/Breakfast.JPG'
 import cardtwo from '../images/Fishing2.jpg'
-import cardthree from '../images/cardthree.png'
+import cardthree from '../images/service.jpg'
 import cardfour from '../images/Lounge2..jpg'
 
 const CardsWrapper = styled.section`
