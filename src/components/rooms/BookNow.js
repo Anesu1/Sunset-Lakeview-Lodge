@@ -97,7 +97,8 @@ const WrapperBook = styled.section`
   }
 `
 
-function BookNow({description, descriptionone, price, view, bedType, adults}) {
+function BookNow({description, descriptionone, price, view, bedType, adults, room}) {
+  const {slug} = room;
   return (
     <WrapperBook id="details">
       <div className="book">
@@ -131,7 +132,7 @@ function BookNow({description, descriptionone, price, view, bedType, adults}) {
       <div className="book-item">
           <p>starting from</p>
           <h3>${price}</h3>
-         <Link to="/booknow"><button>Book Now</button></Link>
+         <Link to={`/rooms/${slug}/booknow`}><button>Book Now</button></Link>
       </div>
       </div>
      

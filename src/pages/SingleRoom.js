@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Cards from "../components/Cards";
@@ -39,7 +40,7 @@ export default class SingleRoom extends Component {
     return (
       <>
         <BannerRooms  bgImage={images[0]} roomName={roomName} subtitle={subtitle}/>
-        <BookNow description={desc} descriptionone={descr_one} price={price} adults={adults} view={view} bedType={bedType}/>
+        <BookNow description={desc} descriptionone={descr_one} room={room} price={price} adults={adults} view={view} bedType={bedType}/>
        <Amenities />
         <Gallery>
           {defaultImg.map((item,i) =>{
