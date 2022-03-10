@@ -6,6 +6,7 @@ import iconpeople from '../../images/icon_people 1.png'
 import iconview from '../../images/icon_view 1.png'
 import Modal from 'react-modal';
 import { useState } from "react";
+import moment from 'moment'
 import Date from "../../styled/Date";
 import {AiOutlineCloseCircle} from 'react-icons/ai'
 import { BiMinusCircle, BiPlusCircle } from "react-icons/bi";
@@ -138,7 +139,7 @@ function BookNow({roomName, description, descriptionone, price, view, bedType, a
   function closeModal() {
     setIsOpen(false);
   }
-  const [startDate, setStartDate] = useState();
+  const [startDate, setStartDate] = useState(moment().toDate());
   const [endDate, setEndDate] = useState();
   const [adult, setAdult] = useState(0);
   const [kids, setKids] = useState(0);

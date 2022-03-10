@@ -30,6 +30,7 @@ function Date({startDate, endDate, setStartDate, setEndDate}) {
       selectsStart
       startDate={startDate}
       endDate={endDate}
+  minDate={startDate}  
     />
      </div>
    <div className="end">

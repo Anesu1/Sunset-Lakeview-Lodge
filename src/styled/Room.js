@@ -143,6 +143,8 @@ function Room({room}) {
       image2: images[1],
     });
   }, [container]);
+
+ 
     return (
         <RoomWrapper className="parent room-inner"
         // id="imgContainer"
@@ -155,7 +157,7 @@ function Room({room}) {
             </div>
                 
           
-            <Link to={`/rooms/${slug}`}>Book Now</Link>
+            <Link  to={`/rooms/${slug}`}>Book Now</Link>
             <div className="glow-wrap">
     <i className="glow"></i>
   </div>

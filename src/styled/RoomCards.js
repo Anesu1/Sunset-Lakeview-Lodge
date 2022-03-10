@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -67,7 +68,15 @@ margin-bottom:30px;
   }
 `
 
-function RoomCards({roomName, imageName, beds, adults, kids, amount}) {
+function RoomCards({roomName, imageName, beds, adults, kids, amount, slug}) {
+  const refreshPage=()=> {
+    setInterval(()=>{
+          window.location.reload(false);
+
+    }
+      
+      , 1000);
+  }
   return (
       <Wrapper>
         <div className="img">
@@ -88,7 +97,8 @@ function RoomCards({roomName, imageName, beds, adults, kids, amount}) {
             <p>King Sized <br />Bed</p>
           </div>
         </div>
-        <button>Book Now From ${amount}</button>
+        <Link  to={`/rooms/${slug}`}><button onClick={refreshPage}>Book Now From ${amount}</button></Link>
+        
       </Wrapper>
   );
 }

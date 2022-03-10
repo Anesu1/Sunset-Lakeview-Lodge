@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useRef} from 'react';
 import styled from 'styled-components';
 import RoomCards from '../../styled/RoomCards';
 import arrayShuffle from 'array-shuffle';
@@ -55,8 +55,9 @@ const CardsRooms = [
 ]
 
 
-function OtherRooms() {
+function OtherRooms({room}) {
   // let shuffled = arrayShuffle(CardsRooms);
+  
   const context = useContext(RoomContext);
   let rooms = context.rooms;
   let current = context.getRoom(context.slug);
@@ -64,12 +65,12 @@ function OtherRooms() {
     return room.slug !== current.slug
   }) : arrayShuffle(CardsRooms);
   return (
-      <Wrapper>
+      <Wrapper >
         <h2>Other Rooms</h2>
         <p className='p'>could also be interest for you</p>
         <div className="cards">
           {featuredRooms.map((item, i)=>{
-            return <RoomCards key={i} roomName={item.roomName} amount={item.price} kids={item.kids} adults={item.adults} beds={item.beds} imageName={item.imagefeat}/>
+            return <RoomCards slug={item.slug} key={i} roomName={item.roomName} amount={item.price} kids={item.kids} adults={item.adults} beds={item.beds} imageName={item.imagefeat}/>
           })}
         </div>
       </Wrapper>
