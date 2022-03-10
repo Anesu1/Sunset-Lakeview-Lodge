@@ -4,7 +4,13 @@ import styled from 'styled-components';
 import iconbed from '../../images/icon_bed 1.png'
 import iconpeople from '../../images/icon_people 1.png'
 import iconview from '../../images/icon_view 1.png'
-import {Link} from 'react-router-dom';
+import Modal from 'react-modal';
+import { useState } from "react";
+import Date from "../../styled/Date";
+import {AiOutlineCloseCircle} from 'react-icons/ai'
+import { BiMinusCircle, BiPlusCircle } from "react-icons/bi";
+
+
 
 const WrapperBook = styled.section`
   padding:5%;
@@ -75,7 +81,9 @@ const WrapperBook = styled.section`
       text-transform:uppercase;
       font-size:20px;
     }
-    button{
+   
+  }
+   button{
       width:100%;
       border:none;
       font-family:${props => props.theme.fam.oswald};
@@ -85,7 +93,6 @@ const WrapperBook = styled.section`
       background:${props => props.theme.color.green};
       color:${props => props.theme.color.orange};
     }
-  }
   .icons{
     @media(min-width:768px){
       display:flex;
@@ -95,10 +102,62 @@ const WrapperBook = styled.section`
       align-items:flex-end;
     }
   }
+
+ 
 `
 
-function BookNow({description, descriptionone, price, view, bedType, adults, room}) {
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
+// Modal.setAppElement('#yourAppElement');
+
+
+
+function BookNow({roomName, description, descriptionone, price, view, bedType, adults, room}) {
   const {slug} = room;
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = '#f00';
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const [adult, setAdult] = useState(0);
+  const [kids, setKids] = useState(0);
+  const [guests, setGuests] = useState(kids + adult);
+  const [kidsage, setKidsage] = useState(false);
+
+  if (adult < 0) {
+    setAdult(0);
+  }
+  if (kids < 0) {
+    setKids(0);
+  }
+  // if (kids > 0) {
+  //   setKidsage(true);
+  // }
+  const Total = () =>{
+    setGuests(kids + adult)
+  }
+  
   return (
     <WrapperBook id="details">
       <div className="book">
@@ -132,10 +191,61 @@ function BookNow({description, descriptionone, price, view, bedType, adults, roo
       <div className="book-item">
           <p>starting from</p>
           <h3>${price}</h3>
-         <Link to={`/rooms/${slug}/booknow`}><button>Book Now</button></Link>
+         <button onClick={openModal}>Book Now</button>
       </div>
+      </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example"
+      >
+        <AiOutlineCloseCircle onClick={closeModal} />
+        
+        <div className="form" id="form">
+        <div className="nameprize">
+          <h1>{roomName}</h1>
+          <span>${price}</span>
+          </div>
+        
+        <div className="blur"></div>
+        <div className="form-inner">
+          <form action="">
+            <Date
+              startDate={startDate}
+              endDate={endDate}
+              setStartDate={setStartDate}
+              setEndDate={setEndDate}
+            />
+            <div className="people">
+              <div className="people-inner">
+                <label htmlFor="">Adults <span onChange={Total}>{adult}</span></label>
+                <div className="icon" onClick={() => setAdult(adult - 1)}>
+                  <BiMinusCircle />
+                </div>
+                <div className="icon" onClick={() => setAdult(adult + 1)}>
+                  <BiPlusCircle />
+                </div>
+              </div>
+              <div className="people-inner">
+                <label htmlFor="" >Kids <span onChange={Total}>{kids}</span></label>
+                <div className="icon" onClick={() => setKids(kids - 1)}>
+                  <BiMinusCircle />
+                </div>
+                <div className="icon" onClick={() => setKids(kids + 1)}>
+                  <BiPlusCircle />
+                </div>
+              </div>
+            </div>
+            <div className="total">
+            <span> Total Guests: {guests}</span>
+              </div>
+          </form> <button className="but">Proceed</button>
+        </div>
       </div>
      
+      </Modal>
     </WrapperBook>
   );
 }

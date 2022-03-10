@@ -40,7 +40,7 @@ export default class SingleRoom extends Component {
     return (
       <>
         <BannerRooms  bgImage={images[0]} roomName={roomName} subtitle={subtitle}/>
-        <BookNow description={desc} descriptionone={descr_one} room={room} price={price} adults={adults} view={view} bedType={bedType}/>
+        <BookNow roomName={roomName} description={desc} descriptionone={descr_one} room={room} price={price} adults={adults} view={view} bedType={bedType}/>
        <Amenities />
         <Gallery>
           {defaultImg.map((item,i) =>{
