@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Link, animateScroll as scroll } from "react-scroll";
 import {TiArrowBack} from 'react-icons/ti';

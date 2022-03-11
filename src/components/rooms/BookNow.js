@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import Paragraph from "../../styled/Paragraph";
 import styled from 'styled-components';
@@ -10,6 +11,7 @@ import moment from 'moment'
 import Date from "../../styled/Date";
 import {AiOutlineCloseCircle} from 'react-icons/ai'
 import { BiMinusCircle, BiPlusCircle } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 
 
@@ -242,7 +244,7 @@ function BookNow({roomName, description, descriptionone, price, view, bedType, a
             <div className="total">
             <span> Total Guests: {guests}</span>
               </div>
-          </form> <button className="but">Proceed</button>
+          </form> <Link to="/checkout"><button className="but">Proceed</button></Link>
         </div>
       </div>
      

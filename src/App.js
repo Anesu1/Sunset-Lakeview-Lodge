@@ -5,6 +5,7 @@ import SingleRoom from './pages/SingleRoom'
 import Error from "./pages/Error";
 import ScrollToTop from "./ScrollToTop";
 import Booking from "./components/Booking";
+import StripeSection from "./components/StripeSection";
 
 function App() {
   
@@ -16,6 +17,7 @@ function App() {
         <Route path="/rooms" exact component={SingleRoom} />
         <Route path="/rooms/:slug" exact component={SingleRoom}/>
         <Route path="/room" exact component={Booking} />
+        <Route path="/checkout" exact component={StripeSection} />
         <Route component={Error} />
       </Switch>
       </ScrollToTop>
