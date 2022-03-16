@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:1337/api";
+export const baseUrl = "http://localhost:1337/api";
 const backendApiKey =
   "14c0db7bf26cd5141e9b2d560816c81b67a6c8bafaca11e73ba9dba224b54004afed17cc55fe82d676af5504dbae6ce0e91b76b1004f294eb44300c306ea76bc85cac0905e5790e3a0d54fc3012b7f24fc1ad8fe7508fb063b5097d61e3dd9882073cc66955e4e71e7393aa66f7aafab9c48cd604195b4832ba64383f3013f88";
 
@@ -27,6 +27,27 @@ function mapToRooms(rooms) {
     let room = { id, imagefeat, images, ...attributes };
     return room;
   });
+}
+
+export async function checkRoomAvailability(checkIn, checkOut, roomId){
+  const requestData = {
+    data: {
+      checkIn,
+      checkOut,
+      room: roomId
+    }
+  }
+
+  try {
+    const response = await axios.post(
+      `${baseUrl}/booking/available`,
+      requestData
+    )
+    const {isAvailable} = response;
+    return isAvailable;
+  } catch(error){
+    throw Error(error)
+  }
 }
 
 const roomExample = [
