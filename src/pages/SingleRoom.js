@@ -15,7 +15,7 @@ export default class SingleRoom extends Component {
   constructor(props){
     super(props) 
     this.state = {
-      slug: this.props.match.params.slug,
+      id: this.props.match.params.id,
       defaultBg:"",
 
     }
@@ -23,19 +23,19 @@ export default class SingleRoom extends Component {
   static contextType = RoomContext;
 
   componentDidMount(){
-        this.context.setRoom(this.props.match.params.slug)
+        this.context.setRoom(this.props.match.params.id)
   }
 
   render() {
     const {getRoom} = this.context;
-    const room = getRoom(this.state.slug);
+    const room = getRoom(this.state.id);
     if(!room){
       return <div className="error">
         <h3>no such room could be found...</h3>
         <Link to="/">Go back home</Link>
       </div>
     }
-    const {roomName, subtitle, desc,descr_one,price, slug, images, adults, view, bedType} = room;
+    const {roomName, subtitle, desc,descr_one,price,  images, adults, view, bedType} = room;
     const [mainImg, ...defaultImg] = images;
     return (
       <>

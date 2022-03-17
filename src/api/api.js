@@ -1,8 +1,10 @@
 import axios from "axios";
+import { startCase } from "lodash";
 
 export const baseUrl = "http://localhost:1337/api";
-const backendApiKey =
-  "14c0db7bf26cd5141e9b2d560816c81b67a6c8bafaca11e73ba9dba224b54004afed17cc55fe82d676af5504dbae6ce0e91b76b1004f294eb44300c306ea76bc85cac0905e5790e3a0d54fc3012b7f24fc1ad8fe7508fb063b5097d61e3dd9882073cc66955e4e71e7393aa66f7aafab9c48cd604195b4832ba64383f3013f88";
+const backendApiKey = "facfc55476d3d2fb54c56374d510e003186978534ccbb5362d3add7c57bf43281a1a9ce603ad55b49c0aa43ce143b0c6c3d6b43d0cf327f225dcb27ba24f2770894e65845d67e1a9fffa0aa04faf11b8f9863347fdc618d647b431b661dc58171d79e5a0ac7d15e58543de7637a3ac65262052a7928268cb6a79d1362d2e80a9"
+
+  // "14c0db7bf26cd5141e9b2d560816c81b67a6c8bafaca11e73ba9dba224b54004afed17cc55fe82d676af5504dbae6ce0e91b76b1004f294eb44300c306ea76bc85cac0905e5790e3a0d54fc3012b7f24fc1ad8fe7508fb063b5097d61e3dd9882073cc66955e4e71e7393aa66f7aafab9c48cd604195b4832ba64383f3013f88";
 
 const headers = {
   Authorization: `Bearer ${backendApiKey}`,
@@ -29,26 +31,29 @@ function mapToRooms(rooms) {
   });
 }
 
-export async function checkRoomAvailability(checkIn, checkOut, roomId){
-  const requestData = {
-    data: {
-      checkIn,
-      checkOut,
-      room: roomId
+
+
+export async function checkRoomAvailability(checkIn, checkOut, id){
+    const requestData = {
+      data: {
+        checkIn,
+        checkOut,
+        room: id
+      }
+    }
+  
+    try {
+      const response = await axios.post(
+        `${baseUrl}/booking/available`,
+        requestData
+      )
+      const {isAvailable} = response;
+      return isAvailable;
+    } catch(error){
+      throw Error(error)
     }
   }
 
-  try {
-    const response = await axios.post(
-      `${baseUrl}/booking/available`,
-      requestData
-    )
-    const {isAvailable} = response;
-    return isAvailable;
-  } catch(error){
-    throw Error(error)
-  }
-}
 
 const roomExample = [
   {

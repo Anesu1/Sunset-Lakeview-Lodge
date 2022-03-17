@@ -301,6 +301,12 @@ function BookNow({
    const available = await checkRoomAvailability(startDate, endDate, slug);
   //  Available variable should be true or false
 
+    if(!available){
+      console.log('room not available');
+    }else{
+      console.log('rom is available')
+    }
+  
   // if false, the client should be shown a message that the room is not available for booking (already booked)
   // if true, proceed to the checkout page passing in the total amout to the checkiut page as a parameter
   };
@@ -404,7 +410,7 @@ function BookNow({
                 <span> Total Price: ${price + kids * 35}</span>
               </div>
             </form>{" "}
-            <button onClick={checkRoomAvailability} className="but">
+            <button onClick={proceed} className="but">
               Proceed
             </button>
           </div>

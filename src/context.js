@@ -13,7 +13,7 @@ class RoomProvider extends Component {
     rooms: [],
     featuredRooms: [],
     loading: true,
-    slug: "",
+    id: "",
   };
 
   //getData
@@ -29,7 +29,7 @@ class RoomProvider extends Component {
         rooms,
         featuredRooms,
         loading: false,
-        slug: "",
+        id: "",
       });
     } catch (error) {
       console.log(error);
@@ -40,10 +40,10 @@ class RoomProvider extends Component {
     this.getData();
   }
 
-  setRoom = (slug) => {
+  setRoom = (id) => {
     this.setState({
       ...this.state,
-      slug: slug,
+      id: id,
     });
   };
   formatData(items) {
@@ -56,9 +56,9 @@ class RoomProvider extends Component {
     });
     return tempItems;
   }
-  getRoom = (slug) => {
+  getRoom = (id) => {
     let tempRooms = [...this.state.rooms];
-    const room = tempRooms.find((room) => room.id === slug);
+    const room = tempRooms.find((room) => room.id === id);
     return room;
   };
 

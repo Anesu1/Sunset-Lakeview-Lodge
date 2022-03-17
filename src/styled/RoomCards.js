@@ -68,7 +68,7 @@ margin-bottom:30px;
   }
 `
 
-function RoomCards({roomName, imageName, beds, adults, kids, amount, slug}) {
+function RoomCards({roomName, imageName, beds, adults, kids, amount, id}) {
   const refreshPage=()=> {
     setInterval(()=>{
           window.location.reload(false);
@@ -97,7 +97,7 @@ function RoomCards({roomName, imageName, beds, adults, kids, amount, slug}) {
             <p>King Sized <br />Bed</p>
           </div>
         </div>
-        <Link  to={`/rooms/${slug}`}><button onClick={refreshPage}>Book Now From ${amount}</button></Link>
+        <Link  to={`/rooms/${id}`}><button onClick={refreshPage}>Book Now From ${amount}</button></Link>
         
       </Wrapper>
   );
