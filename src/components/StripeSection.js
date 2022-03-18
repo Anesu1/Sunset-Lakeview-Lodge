@@ -7,7 +7,6 @@ import {
   useStripe,
   useElements,
   PaymentElement,
-  
 } from "@stripe/react-stripe-js";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -133,7 +132,6 @@ const CheckoutForm = ({ props }) => {
       type: "card",
       card: elements.getElement(CardElement),
     });
-
   };
 
   return (
@@ -156,15 +154,19 @@ const CheckoutForm = ({ props }) => {
 const publishablekey =
   "pk_test_51KVuGuDrnLGrJMF2iGHdpltwQAQ4calwlB6lTUkZED8Gq8q7gI4vu6I8K4nIL1vnz7tb491KDPKTVxbz6oKG3b0500N6MwQghc";
 const options = {
-  clientSecret: "sk_test_51KVuGuDrnLGrJMF2L0nh7zU5mqV4kmwF7ccLVqJHFzXiZ3yr8A1gHnefCiNEvNPuCdqbNu8wGpHUlwJcvr7Gf8Ji00s6K5AmF2",
+  clientSecret:
+    "sk_test_51KVuGuDrnLGrJMF2L0nh7zU5mqV4kmwF7ccLVqJHFzXiZ3yr8A1gHnefCiNEvNPuCdqbNu8wGpHUlwJcvr7Gf8Ji00s6K5AmF2",
 };
 
 const stripePromise = loadStripe(publishablekey);
 
-const StripeSection = () => (
-  <Elements stripe={stripePromise} >
-    <CheckoutForm />
-  </Elements>
-);
+const StripeSection = ({ props }) => {
+
+  return (
+    <Elements stripe={stripePromise}>
+      <CheckoutForm />
+    </Elements>
+  );
+};
 
 export default StripeSection;

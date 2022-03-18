@@ -20,6 +20,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { useHistory } from "react-router-dom";
 
 const WrapperBook = styled.section`
   padding: 5%;
@@ -246,6 +247,7 @@ function BookNow({
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalCheckout, setModalCheckOut] = React.useState(false);
+  const history = useHistory();
 
   function openModal() {
     setIsOpen(true);
@@ -300,8 +302,10 @@ function BookNow({
     const checkOut = formatDate(endDate);
     const available = await checkRoomAvailability(checkIn, checkOut, id);
     setIsAvailable(available);
+
+    if (isAvailable) history.replace("/checkout", { totalAmount: price });
     //  Available variable should be true or false
-    
+
     // if false, the client should be shown a message that the room is not available for booking (already booked)
     // if true, proceed to the checkout page passing in the total amout to the checkiut page as a parameter
   };
