@@ -6,7 +6,7 @@ import hoverEffect from "hover-effect";
 import fluid from "../images/fluid.jpg";
 
 const RoomWrapper = styled.div`
-  background: url("./imgs/${(props) => props.mgBg}");
+  background: url("${(props) => props.mgBg}");
   background-size: cover;
   width: 100%;
   position: relative;

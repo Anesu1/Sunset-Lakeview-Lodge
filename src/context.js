@@ -19,7 +19,7 @@ class RoomProvider extends Component {
   //getData
   getData = async () => {
     const backendRooms = await getRooms();
-    console.log(backendRooms);
+    // console.log(backendRooms);
     try {
       // let response = await Client.getEntries();
       // console.log(response);
@@ -58,7 +58,7 @@ class RoomProvider extends Component {
   }
   getRoom = (id) => {
     let tempRooms = [...this.state.rooms];
-    const room = tempRooms.find((room) => room.id === id);
+    const room = tempRooms.find((room) => room.id == id);
     return room;
   };
 

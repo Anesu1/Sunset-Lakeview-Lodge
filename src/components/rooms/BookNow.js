@@ -20,101 +20,93 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import axios from "axios";
-import { baseUrl } from "../../api/api";
 
 const WrapperBook = styled.section`
-  padding:5%;
-  @media(min-width:768px){
-    padding:0 5%;
+  padding: 5%;
+  @media (min-width: 768px) {
+    padding: 0 5%;
   }
-  .book{
-    width:90%;
-    margin:0 auto;
-    box-shadow:0 4px 20px #f4f4f4;
-    background:#ffffff;
-    transform:translateY(-70px);
-    padding:5%;
-    @media(min-width:992px){
-      display:flex;
-      justify-content:space-between;
-      position:relative;
-    &:before{
-      position:absolute;
-      height:80%;
-      width:1px;
-      background:#000;
-      content:"";
-      left:65%;
-      top:50%;
-      transform:translateY(-50%);
-    }
-    }
-  }
-  .book-inner{
-    text-align:center;
-    @media(min-width:992px){
-      text-align:left;
-      width:60%;
-      h3{
-        font-size:30px;
+  .book {
+    width: 90%;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px #f4f4f4;
+    background: #ffffff;
+    transform: translateY(-70px);
+    padding: 5%;
+    @media (min-width: 992px) {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      &:before {
+        position: absolute;
+        height: 80%;
+        width: 1px;
+        background: #000;
+        content: "";
+        left: 65%;
+        top: 50%;
+        transform: translateY(-50%);
       }
     }
-        
-  
   }
-  .icon-inner{
-    margin-bottom:30px;
-    @media(min-width:992px){
-      margin;0;
-      text-align:center;
-    }
-    img{
-      width:70px;
+  .book-inner {
+    text-align: center;
+    @media (min-width: 992px) {
+      text-align: left;
+      width: 60%;
+      h3 {
+        font-size: 30px;
+      }
     }
   }
-  .book-item{
-    text-align:center;
-    @media(min-width:992px){
-      width:30%;
-      margin:auto 0 auto auto;
+  .icon-inner {
+    margin-bottom: 30px;
+    @media (min-width: 992px) {
+      margin: 0;
+      text-align: center;
     }
-    h3{
-      font-family:${(props) => props.theme.fam.cera};
-      font-size:60px;
-      margin:20px 0;
-      font-weight:900;
-     
-    }
-    p{
-      font-family:${(props) => props.theme.fam.cera};
-      color:${(props) => props.theme.color.orange};
-      text-transform:uppercase;
-      font-size:20px;
-    }
-   
-  }
-   button{
-      width:100%;
-      border:none;
-      font-family:${(props) => props.theme.fam.oswald};
-      height:50px;
-      font-size:20px;
-      text-transform:uppercase;
-      background:${(props) => props.theme.color.green};
-      color:${(props) => props.theme.color.orange};
-    }
-  .icons{
-    @media(min-width:768px){
-      display:flex;
-      justify-content:space-between;
-      max-width:500px;
-      margin:0 auto;
-      align-items:flex-end;
+    img {
+      width: 70px;
     }
   }
-
- 
+  .book-item {
+    text-align: center;
+    @media (min-width: 992px) {
+      width: 30%;
+      margin: auto 0 auto auto;
+    }
+    h3 {
+      font-family: ${(props) => props.theme.fam.cera};
+      font-size: 60px;
+      margin: 20px 0;
+      font-weight: 900;
+    }
+    p {
+      font-family: ${(props) => props.theme.fam.cera};
+      color: ${(props) => props.theme.color.orange};
+      text-transform: uppercase;
+      font-size: 20px;
+    }
+  }
+  button {
+    width: 100%;
+    border: none;
+    font-family: ${(props) => props.theme.fam.oswald};
+    height: 50px;
+    font-size: 20px;
+    text-transform: uppercase;
+    background: ${(props) => props.theme.color.green};
+    color: ${(props) => props.theme.color.orange};
+  }
+  .icons {
+    @media (min-width: 768px) {
+      display: flex;
+      justify-content: space-between;
+      max-width: 500px;
+      margin: 0 auto;
+      align-items: flex-end;
+    }
+  }
 `;
 
 const FormWrapper = styled.section`
@@ -249,7 +241,8 @@ function BookNow({
   adults,
   room,
 }) {
-  const { slug } = room;
+  const { id } = room;
+
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalCheckout, setModalCheckOut] = React.useState(false);
@@ -278,6 +271,7 @@ function BookNow({
   const [kids, setKids] = useState(0);
   const [guests, setGuests] = useState(kids + adult);
   const [kidsage, setKidsage] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(undefined);
 
   if (adult < 0) {
     setAdult(0);
@@ -295,20 +289,21 @@ function BookNow({
     setGuests(kids + adult);
   };
 
-// call this method when the proceed button is pressed
+  function formatDate(date) {
+    return moment(date).format("yyyy-MM-DD").toString();
+  }
+
+  // call this method when the proceed button is pressed
   const proceed = async () => {
     // Slug should be the room id;
-   const available = await checkRoomAvailability(startDate, endDate, slug);
-  //  Available variable should be true or false
-
-    if(!available){
-      console.log('room not available');
-    }else{
-      console.log('rom is available')
-    }
-  
-  // if false, the client should be shown a message that the room is not available for booking (already booked)
-  // if true, proceed to the checkout page passing in the total amout to the checkiut page as a parameter
+    const checkIn = formatDate(startDate);
+    const checkOut = formatDate(endDate);
+    const available = await checkRoomAvailability(checkIn, checkOut, id);
+    setIsAvailable(available);
+    //  Available variable should be true or false
+    
+    // if false, the client should be shown a message that the room is not available for booking (already booked)
+    // if true, proceed to the checkout page passing in the total amout to the checkiut page as a parameter
   };
 
   // const stripe = useStripe();
@@ -408,6 +403,14 @@ function BookNow({
               </div>
               <div className="total">
                 <span> Total Price: ${price + kids * 35}</span>
+              </div>
+              <div className="total" style={{ marginBottom: 40 + "px" }}>
+                <span style={{ color: "red" }}>
+                  {" "}
+                  {isAvailable === false && isAvailable !== undefined
+                    ? "The Room Is Not Available For Booking at the moment."
+                    : ""}
+                </span>
               </div>
             </form>{" "}
             <button onClick={proceed} className="but">

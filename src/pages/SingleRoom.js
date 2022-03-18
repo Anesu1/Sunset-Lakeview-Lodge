@@ -17,7 +17,6 @@ export default class SingleRoom extends Component {
     this.state = {
       id: this.props.match.params.id,
       defaultBg:"",
-
     }
   }
   static contextType = RoomContext;
@@ -29,21 +28,22 @@ export default class SingleRoom extends Component {
   render() {
     const {getRoom} = this.context;
     const room = getRoom(this.state.id);
+    console.log(room);
     if(!room){
       return <div className="error">
         <h3>no such room could be found...</h3>
         <Link to="/">Go back home</Link>
       </div>
     }
-    const {roomName, subtitle, desc,descr_one,price,  images, adults, view, bedType} = room;
-    const [mainImg, ...defaultImg] = images;
+    const {roomName, subtitle, description,descr_one,price,  images, adults, view, bedType} = room;
+    // const [mainImg, ...defaultImg] = images;
     return (
       <>
         <BannerRooms  bgImage={images[0]} roomName={roomName} subtitle={subtitle}/>
-        <BookNow roomName={roomName} description={desc} descriptionone={descr_one} room={room} price={price} adults={adults} view={view} bedType={bedType}/>
+        <BookNow roomName={roomName} description={description} descriptionone={descr_one} room={room} price={price} adults={adults} view={view} bedType={bedType}/>
        <Amenities />
         <Gallery>
-          {defaultImg.map((item,i) =>{
+          {images.map((item,i) =>{
             return <img src={item} key={i} alt={roomName} />
           })}
        </Gallery>
@@ -55,3 +55,4 @@ export default class SingleRoom extends Component {
     );
   }
 }
+
