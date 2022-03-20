@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   CardElement,
@@ -9,7 +9,7 @@ import {
   PaymentElement,
 } from "@stripe/react-stripe-js";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Wrapper = styled.section`
   height: 100vh;
@@ -121,6 +121,13 @@ const Wrapper = styled.section`
 const CheckoutForm = ({ props }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const location = useLocation();
+
+  const paramState = useRef();
+  useEffect(() => {
+    paramState.current = location.state;
+  }, [location]);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -161,7 +168,6 @@ const options = {
 const stripePromise = loadStripe(publishablekey);
 
 const StripeSection = ({ props }) => {
-
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm />

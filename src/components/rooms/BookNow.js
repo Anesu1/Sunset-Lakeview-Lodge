@@ -303,7 +303,16 @@ function BookNow({
     const available = await checkRoomAvailability(checkIn, checkOut, id);
     setIsAvailable(available);
 
-    if (isAvailable) history.replace("/checkout", { totalAmount: price });
+    // @TODO: Add more fields @High
+    const state = {
+      amount: 0,
+      room: {
+        roomName,
+        price,
+      },
+    };
+
+    if (isAvailable) history.replace("/checkout", state);
     //  Available variable should be true or false
 
     // if false, the client should be shown a message that the room is not available for booking (already booked)
@@ -423,28 +432,7 @@ function BookNow({
           </div>
         </div>
       </Modal>
-      {/* <Modal
-    isOpen={modalCheckout}
-    onAfterOpen={afterOpenModal}
-    onRequestClose={closeCheckModal}
-    style={customStyles}
-    contentLabel="Example"
-    >
- <Elements stripe={stripePromise}>
- <FormWrapper className="my-form">
-   Total is {guests}
-      <form onSubmit={handleSubmit}>
-        <div className="blur"></div>
-      
-      <CardElement  />
-      <button type="submit" disabled={!stripe || !elements}>
-        Pay Now
-      </button>
-      <Link to="/"><button>Back Home</button></Link>
-    </form>
-      </FormWrapper>
-  </Elements>
-    </Modal> */}
+    
     </WrapperBook>
   );
 }
