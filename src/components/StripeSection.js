@@ -185,7 +185,7 @@ const StripeSection = ({ props }) => {
   useEffect(() => {
     paramState.current = location.state;
     createSecretToken({
-      amount: paramState.current.amount || 200,
+      amount: paramState.current.amount ,
       currency: "usd",
     }).then((secret) => setClientSecret(secret));
   }, [clientSecret, location]);
