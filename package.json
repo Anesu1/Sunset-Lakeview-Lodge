@@ -29,6 +29,7 @@
     "react-scroll": "^1.8.4",
     "react-slick": "^0.28.1",
     "strapi-sdk-js": "^2.2.0",
+    "stripe": "^8.210.0",
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.2"
   },

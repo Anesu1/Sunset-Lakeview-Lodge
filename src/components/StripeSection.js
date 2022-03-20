@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import { createSecretToken } from "./../api/api";
 import {
   CardElement,
   Elements,
   useStripe,
   useElements,
   PaymentElement,
+ 
 } from "@stripe/react-stripe-js";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
@@ -119,15 +121,8 @@ const Wrapper = styled.section`
 `;
 
 const CheckoutForm = ({ props }) => {
-  const stripe = useStripe();
+  const stripeObj = useStripe();
   const elements = useElements();
-  const location = useLocation();
-
-  const paramState = useRef();
-  useEffect(() => {
-    paramState.current = location.state;
-  }, [location]);
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -135,9 +130,9 @@ const CheckoutForm = ({ props }) => {
       return;
     }
 
-    const { token, error } = await stripe.createToken({
+    const { token, error } = await stripeObj.createToken({
       type: "card",
-      card: elements.getElement(CardElement),
+      card: elements.getElement(PaymentElement),
     });
   };
 
@@ -146,8 +141,20 @@ const CheckoutForm = ({ props }) => {
       <form onSubmit={handleSubmit}>
         <div className="blur"></div>
         <h1>Book your room</h1>
-        <CardElement />
-        <button type="submit" disabled={!stripe || !elements}>
+        <PaymentElement
+          options={{
+            fields: {
+              billingDetails: {
+                name: "auto",
+                email: "auto",
+                address: "auto",
+                phone:'auto'
+              },
+            },
+          }}
+        />
+
+        <button type="submit" disabled={!stripeObj || !elements}>
           Pay Now
         </button>
         <Link to="/">
@@ -160,16 +167,40 @@ const CheckoutForm = ({ props }) => {
 
 const publishablekey =
   "pk_test_51KVuGuDrnLGrJMF2iGHdpltwQAQ4calwlB6lTUkZED8Gq8q7gI4vu6I8K4nIL1vnz7tb491KDPKTVxbz6oKG3b0500N6MwQghc";
-const options = {
-  clientSecret:
-    "sk_test_51KVuGuDrnLGrJMF2L0nh7zU5mqV4kmwF7ccLVqJHFzXiZ3yr8A1gHnefCiNEvNPuCdqbNu8wGpHUlwJcvr7Gf8Ji00s6K5AmF2",
-};
 
 const stripePromise = loadStripe(publishablekey);
 
 const StripeSection = ({ props }) => {
+  const location = useLocation();
+  const paramState = useRef();
+  const [clientSecret, setClientSecret] = useState("");
+
+  // const state = {
+  //   amount: 0,
+  //   room: {
+  //     roomName,
+  //     price,
+  //   },
+  // };
+  useEffect(() => {
+    paramState.current = location.state;
+    createSecretToken({
+      amount: paramState.current.amount || 200,
+      currency: "usd",
+    }).then((secret) => setClientSecret(secret));
+  }, [clientSecret, location]);
+
+  if (clientSecret === "") {
+    return <div></div>;
+  }
+
   return (
-    <Elements stripe={stripePromise}>
+    <Elements
+      stripe={stripePromise}
+      options={{
+        clientSecret: clientSecret,
+      }}
+    >
       <CheckoutForm />
     </Elements>
   );

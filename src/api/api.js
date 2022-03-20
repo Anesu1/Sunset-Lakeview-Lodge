@@ -13,6 +13,9 @@ const headers = {
   Authorization: `Bearer ${backendApiKey}`,
 };
 
+axios.defaults.headers = headers;
+
+
 async function getRooms() {
   const path = "/rooms?populate=*";
   const res = await axios.get(baseUrl + path, { headers: headers });
@@ -51,6 +54,20 @@ export async function checkRoomAvailability(checkIn, checkOut, id) {
   );
   const { isAvailable } = response.data;
   return isAvailable;
+}
+
+export async function createSecretToken(data) {
+  const { amount, currency } = data;
+   // const path ='https://lakeviewnodejs.herokuapp.com/api/create-token';
+  // {headers:{Authorization:"Bearer e76cac099e2b91e84e0eb86eaa510628478f0c247142c00ed9e10b6b9564695af16f00aae71f288fcedfdade8e97d0a8077282c33a11a76be504863a26cd025fe6e3d6e2de6996991e17bae52ada68cf92dd44f25571eb5cffd356bfd84c3fe6147f0ead19abf571c19eec0d0b4e4f746f4249b529f474a2c2588daa65b579ab"}}
+  const response = await axios.post(`${baseUrl}/create-token`, {
+    amount,
+    currency,
+  });
+
+  const { clientSecret } = response.data;
+
+  return clientSecret;
 }
 
 const roomExample = [
