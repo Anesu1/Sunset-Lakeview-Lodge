@@ -258,7 +258,7 @@ function BookNow({
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = "#f00";
+   // subtitle.style.color = "#f00";
   }
 
   function closeModal() {
@@ -274,6 +274,7 @@ function BookNow({
   const [guests, setGuests] = useState(kids + adult);
   const [kidsage, setKidsage] = useState(false);
   const [isAvailable, setIsAvailable] = useState(undefined);
+  const [totalAmout, setTotalAmount] = useState(0);
 
   if (adult < 0) {
     setAdult(0);
@@ -291,6 +292,11 @@ function BookNow({
     setGuests(kids + adult);
   };
 
+  const TotalAmount = () => {
+    const total = price + (kids * 35);
+    setTotalAmount(total);
+  };
+
   function formatDate(date) {
     return moment(date).format("yyyy-MM-DD").toString();
   }
@@ -302,10 +308,11 @@ function BookNow({
     const checkOut = formatDate(endDate);
     const available = await checkRoomAvailability(checkIn, checkOut, id);
     setIsAvailable(available);
+    TotalAmount()
 
     // @TODO: Add more fields @High
     const state = {
-      amount: 0,
+      amount: totalAmout,
       room: {
         roomName,
         price,
@@ -432,7 +439,6 @@ function BookNow({
           </div>
         </div>
       </Modal>
-    
     </WrapperBook>
   );
 }

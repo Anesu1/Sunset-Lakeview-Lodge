@@ -8,7 +8,6 @@ import {
   useStripe,
   useElements,
   PaymentElement,
- 
 } from "@stripe/react-stripe-js";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
@@ -120,7 +119,7 @@ const Wrapper = styled.section`
   }
 `;
 
-const CheckoutForm = ({ props }) => {
+const CheckoutForm = (props) => {
   const stripeObj = useStripe();
   const elements = useElements();
 
@@ -129,11 +128,17 @@ const CheckoutForm = ({ props }) => {
     if (elements == null) {
       return;
     }
-
-    const { token, error } = await stripeObj.createToken({
-      type: "card",
-      card: elements.getElement(PaymentElement),
+    const payload = await stripeObj.confirmPayment({
+      elements: elements,
+      confirmParams: {
+        return_url: "https://example.com/order/123/complete",
+      },
+      
     });
+
+    if (payload.error) {
+      console.log(payload.error);
+    }
   };
 
   return (
@@ -148,7 +153,7 @@ const CheckoutForm = ({ props }) => {
                 name: "auto",
                 email: "auto",
                 address: "auto",
-                phone:'auto'
+                phone: "auto",
               },
             },
           }}
@@ -182,10 +187,15 @@ const StripeSection = ({ props }) => {
   //     price,
   //   },
   // };
+
+  // useEffect(()=>{
+  //   paramState.current = location.state;
+  // })
+
   useEffect(() => {
     paramState.current = location.state;
     createSecretToken({
-      amount: paramState.current.amount ,
+      amount: paramState.current.amount,
       currency: "usd",
     }).then((secret) => setClientSecret(secret));
   }, [clientSecret, location]);
@@ -195,14 +205,16 @@ const StripeSection = ({ props }) => {
   }
 
   return (
-    <Elements
-      stripe={stripePromise}
-      options={{
-        clientSecret: clientSecret,
-      }}
-    >
-      <CheckoutForm />
-    </Elements>
+    <>
+      <Elements
+        stripe={stripePromise}
+        options={{
+          clientSecret: clientSecret,
+        }}
+      >
+        <CheckoutForm clientSecret={clientSecret} />
+      </Elements>
+    </>
   );
 };
 
