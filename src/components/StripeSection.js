@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { createSecretToken } from "./../api/api";
+import { createSecretToken, createBookingRequest } from "./../api/api";
 import {
   CardElement,
   Elements,
@@ -133,11 +133,21 @@ const CheckoutForm = (props) => {
       confirmParams: {
         return_url: "https://example.com/order/123/complete",
       },
-      
     });
 
     if (payload.error) {
       console.log(payload.error);
+    } else {
+      const { room, amount } = props.state;
+
+      const payload = {
+        data: {
+          room: room.id,
+          checkIn: room.checkIn,
+          checkOut: room.checkOut,
+        },
+      };
+      await createBookingRequest(payload);
     }
   };
 
@@ -185,12 +195,11 @@ const StripeSection = ({ props }) => {
   //   room: {
   //     roomName,
   //     price,
+  // id
+  // checkIn,
+  // checkOut,
   //   },
   // };
-
-  // useEffect(()=>{
-  //   paramState.current = location.state;
-  // })
 
   useEffect(() => {
     paramState.current = location.state;
@@ -198,7 +207,7 @@ const StripeSection = ({ props }) => {
       amount: paramState.current.amount,
       currency: "usd",
     }).then((secret) => setClientSecret(secret));
-  }, [clientSecret, location]);
+  }, );
 
   if (clientSecret === "") {
     return <div></div>;
@@ -212,7 +221,7 @@ const StripeSection = ({ props }) => {
           clientSecret: clientSecret,
         }}
       >
-        <CheckoutForm clientSecret={clientSecret} />
+        <CheckoutForm clientSecret={clientSecret} state={paramState} />
       </Elements>
     </>
   );

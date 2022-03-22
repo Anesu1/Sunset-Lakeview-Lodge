@@ -70,6 +70,12 @@ export async function createSecretToken(data) {
   return clientSecret;
 }
 
+
+export async function createBookingRequest(data){
+  const response = await axios.post(`${baseUrl}/bookings`,data);
+  return response.data;
+}
+
 const roomExample = [
   {
     id: 1,

@@ -258,7 +258,7 @@ function BookNow({
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
-   // subtitle.style.color = "#f00";
+    // subtitle.style.color = "#f00";
   }
 
   function closeModal() {
@@ -293,7 +293,7 @@ function BookNow({
   };
 
   const TotalAmount = () => {
-    const total = price + (kids * 35);
+    const total = price + kids * 35;
     setTotalAmount(total);
   };
 
@@ -308,7 +308,7 @@ function BookNow({
     const checkOut = formatDate(endDate);
     const available = await checkRoomAvailability(checkIn, checkOut, id);
     setIsAvailable(available);
-    TotalAmount()
+    TotalAmount();
 
     // @TODO: Add more fields @High
     const state = {
@@ -316,6 +316,9 @@ function BookNow({
       room: {
         roomName,
         price,
+        id,
+        checkIn,
+        checkOut,
       },
     };
 
@@ -325,22 +328,6 @@ function BookNow({
     // if false, the client should be shown a message that the room is not available for booking (already booked)
     // if true, proceed to the checkout page passing in the total amout to the checkiut page as a parameter
   };
-
-  // const stripe = useStripe();
-  // const elements = useElements();
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   if (elements == null) {
-  //     return;
-  //   }
-
-  //   const {error, paymentMethod} = await stripe.createPaymentMethod({
-  //     type: 'card',
-  //     card: elements.getElement(CardElement),
-  //   });
-  // };
 
   return (
     <WrapperBook id="details">
