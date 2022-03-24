@@ -350,7 +350,9 @@ function BookNow({
     total = total + days * price;
     setTotalAmount(total.toFixed(2));
   }
-
+  useEffect(() => {
+    calculateTotal();
+  });
   return (
     <WrapperBook id="details">
       <div className="book">

@@ -26,13 +26,13 @@ function Date({
   calculateTotal,
 }) {
   function onSetStartDate(date) {
-    calculateTotal();
     setStartDate(date);
+    calculateTotal();
   }
 
   function onSetEndDate(date) {
-    calculateTotal();
     setEndDate(date);
+    calculateTotal();
   }
   return (
     <Wrapper>
