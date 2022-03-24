@@ -130,15 +130,13 @@ const CheckoutForm = (props) => {
     }
     const payload = await stripeObj.confirmPayment({
       elements: elements,
-      confirmParams: {
-        return_url: "https://example.com/order/123/complete",
-      },
+      redirect: "if_required",
     });
 
     if (payload.error) {
       console.log(payload.error);
     } else {
-      const { room, amount } = props.state;
+      const { room, amount } = props.state.current;
 
       const payload = {
         data: {
@@ -155,7 +153,7 @@ const CheckoutForm = (props) => {
     <Wrapper className="my-form">
       <form onSubmit={handleSubmit}>
         <div className="blur"></div>
-        <h1>Book your room</h1>
+        <h1>Book your room : {props.state.current.room.roomName}</h1>
         <PaymentElement
           options={{
             fields: {
@@ -207,7 +205,7 @@ const StripeSection = ({ props }) => {
       amount: paramState.current.amount,
       currency: "usd",
     }).then((secret) => setClientSecret(secret));
-  }, );
+  });
 
   if (clientSecret === "") {
     return <div></div>;
