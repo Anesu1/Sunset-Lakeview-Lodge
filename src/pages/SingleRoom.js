@@ -35,6 +35,7 @@ export default class SingleRoom extends Component {
         <Link to="/">Go back home</Link>
       </div>
     }
+    
     const {roomName, subtitle, description,descr_one,price,  images, adults, view, bedType} = room;
     // const [mainImg, ...defaultImg] = images;
     return (

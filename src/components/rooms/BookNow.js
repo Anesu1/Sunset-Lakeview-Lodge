@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React,{useRef} from "react";
 import Paragraph from "../../styled/Paragraph";
 import styled from "styled-components";
 import iconbed from "../../images/icon_bed 1.png";
@@ -228,7 +228,8 @@ const customStyles = {
   },
 };
 
-// Modal.setAppElement('#yourAppElement');
+
+  // Modal.setAppElement('#ele');
 
 const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
 
@@ -243,7 +244,7 @@ function BookNow({
   room,
 }) {
   const { id } = room;
-
+  
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalCheckout, setModalCheckOut] = React.useState(false);
@@ -329,9 +330,9 @@ function BookNow({
     // if true, proceed to the checkout page passing in the total amout to the checkiut page as a parameter
   };
 
-  return (
-    <WrapperBook id="details">
-      <div className="book">
+  return ( 
+    <WrapperBook id="details" >
+      <div className="book" >
         <div className="book-inner">
           <h3>
             Great choice for a relaxing vacation for families with children or a
@@ -365,6 +366,7 @@ function BookNow({
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
+        
         contentLabel="Example"
       >
         <AiOutlineCloseCircle onClick={closeModal} />

@@ -1,14 +1,10 @@
 import axios from "axios";
 import { startCase } from "lodash";
 
-const host = "http://localhost:1337";
+const host = "https://lakeviewnodejs.herokuapp.com";
 export const baseUrl = `${host}/api`;
 
-const backendApiKey =
-  "14c0db7bf26cd5141e9b2d560816c81b67a6c8bafaca11e73ba9dba224b54004afed17cc55fe82d676af5504dbae6ce0e91b76b1004f294eb44300c306ea76bc85cac0905e5790e3a0d54fc3012b7f24fc1ad8fe7508fb063b5097d61e3dd9882073cc66955e4e71e7393aa66f7aafab9c48cd604195b4832ba64383f3013f88";
-
-// "14c0db7bf26cd5141e9b2d560816c81b67a6c8bafaca11e73ba9dba224b54004afed17cc55fe82d676af5504dbae6ce0e91b76b1004f294eb44300c306ea76bc85cac0905e5790e3a0d54fc3012b7f24fc1ad8fe7508fb063b5097d61e3dd9882073cc66955e4e71e7393aa66f7aafab9c48cd604195b4832ba64383f3013f88";
-
+const backendApiKey = "4c2fe7012b3dff54fbbebdcc6635ab67d8ee367f43826852fef3ad3bdc689f53020ef60fac158435703ed49d626a759ef64c76af1a00eb0568dd0e06639280f6863b516080c0ea4e39ab095d32246b296751ccd96de1b2b6398c80bd497c794a49b1434d5f3ba9cd1086c095cf90037d01a6a490073350079e0cc3e313aedd6d"
 const headers = {
   Authorization: `Bearer ${backendApiKey}`,
 };
