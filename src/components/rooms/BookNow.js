@@ -6,7 +6,7 @@ import iconbed from "../../images/icon_bed 1.png";
 import iconpeople from "../../images/icon_people 1.png";
 import iconview from "../../images/icon_view 1.png";
 import Modal from "react-modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import moment from "moment";
 import Date from "../../styled/Date";
 import { AiOutlineCloseCircle } from "react-icons/ai";
@@ -21,6 +21,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { useHistory } from "react-router-dom";
+import { KeyboardReturn } from "@material-ui/icons";
 
 const WrapperBook = styled.section`
   padding: 5%;
@@ -276,6 +277,11 @@ function BookNow({
   const [kidsage, setKidsage] = useState(false);
   const [isAvailable, setIsAvailable] = useState(undefined);
   const [totalAmout, setTotalAmount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const cIn = moment(startDate);
+  const cOut = moment(endDate);
+  const days = moment.duration(cOut.diff(cIn)).asDays();
 
   if (adult < 0) {
     setAdult(0);
@@ -293,8 +299,15 @@ function BookNow({
     setGuests(kids + adult);
   };
 
-  const TotalAmount = () => {
-    const total = price + kids * 35;
+  const TotalAmount = (days, price) => {
+    let total = 0;
+    if (days == null || days === undefined) {
+      total = price + kids * 35;
+      setTotalAmount(total);
+      return;
+    }
+    total = price + kids * 35;
+    total = total + days * price;
     setTotalAmount(total);
   };
 
@@ -307,9 +320,9 @@ function BookNow({
     // Slug should be the room id;
     const checkIn = formatDate(startDate);
     const checkOut = formatDate(endDate);
+
     const available = await checkRoomAvailability(checkIn, checkOut, id);
     setIsAvailable(available);
-    TotalAmount();
 
     // @TODO: Add more fields @High
     const state = {
@@ -330,9 +343,20 @@ function BookNow({
     // if true, proceed to the checkout page passing in the total amout to the checkiut page as a parameter
   };
 
-  return ( 
-    <WrapperBook id="details" >
-      <div className="book" >
+  function calculateTotal() {
+    let total = 0;
+    if (kids !== 0) {
+      total = total + (price + kids * 35);
+    }
+    total = total + days * price;
+    setTotalAmount(total.toFixed(2));
+  }
+  useEffect(() => {
+    calculateTotal();
+  });
+  return (
+    <WrapperBook id="details">
+      <div className="book">
         <div className="book-inner">
           <h3>
             Great choice for a relaxing vacation for families with children or a
@@ -368,6 +392,7 @@ function BookNow({
         style={customStyles}
         
         contentLabel="Example"
+        ariaHideApp={false}
       >
         <AiOutlineCloseCircle onClick={closeModal} />
 
@@ -385,6 +410,7 @@ function BookNow({
                 endDate={endDate}
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}
+                calculateTotal={calculateTotal}
               />
               <div className="people">
                 <div className="people-inner">
@@ -402,16 +428,28 @@ function BookNow({
                   <label htmlFor="">
                     Kids <span onChange={Total}>{kids}</span>
                   </label>
-                  <div className="icon" onClick={() => setKids(kids - 1)}>
+                  <div
+                    className="icon"
+                    onClick={() => {
+                      setKids(kids - 1);
+                      calculateTotal();
+                    }}
+                  >
                     <BiMinusCircle />
                   </div>
-                  <div className="icon" onClick={() => setKids(kids + 1)}>
+                  <div
+                    className="icon"
+                    onClick={() => {
+                      setKids(kids + 1);
+                      calculateTotal();
+                    }}
+                  >
                     <BiPlusCircle />
                   </div>
                 </div>
               </div>
               <div className="total">
-                <span> Total Price: ${price + kids * 35}</span>
+                <span> Total Price: ${totalAmout}</span>
               </div>
               <div className="total" style={{ marginBottom: 40 + "px" }}>
                 <span style={{ color: "red" }}>
