@@ -20,6 +20,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { SpinningCircles } from 'react-loading-icons'
 import { useHistory } from "react-router-dom";
 import { KeyboardReturn } from "@material-ui/icons";
 
@@ -265,6 +266,7 @@ function BookNow({
 
   function closeModal() {
     setIsOpen(false);
+    setClicked(false)
   }
   function closeCheckModal() {
     setModalCheckOut(false);
@@ -278,6 +280,7 @@ function BookNow({
   const [isAvailable, setIsAvailable] = useState(undefined);
   const [totalAmout, setTotalAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   const cIn = moment(startDate);
   const cOut = moment(endDate);
@@ -320,7 +323,7 @@ function BookNow({
     // Slug should be the room id;
     const checkIn = formatDate(startDate);
     const checkOut = formatDate(endDate);
-
+ setClicked(true)
     const available = await checkRoomAvailability(checkIn, checkOut, id);
     setIsAvailable(available);
 
@@ -354,6 +357,10 @@ function BookNow({
   useEffect(() => {
     calculateTotal();
   });
+
+  const handleClick = () =>{
+   
+  }
   return (
     <WrapperBook id="details">
       <div className="book">
@@ -461,7 +468,7 @@ function BookNow({
               </div>
             </form>{" "}
             <button onClick={proceed} className="but">
-              Proceed
+              {clicked ?  <SpinningCircles />:`Proceed`}
             </button>
           </div>
         </div>

@@ -11,11 +11,16 @@ import {
 } from "@stripe/react-stripe-js";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
+import { SpinningCircles  } from 'react-loading-icons'
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+
 
 const Wrapper = styled.section`
-  height: 100vh;
+  height: auto;
   width: 100%;
   display: flex;
+  padding:10% 0;
   align-items: center;
   justify-content: center;
   background: linear-gradient(
@@ -70,7 +75,6 @@ const Wrapper = styled.section`
     display: inline-block;
     height: 40px;
     margin-right: 20px;
-    line-height: 40px;
     padding: 0 14px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     color: #fff;
@@ -84,6 +88,10 @@ const Wrapper = styled.section`
     -webkit-transition: all 150ms ease;
     transition: all 150ms ease;
     margin-top: 10px;
+    svg{
+      height:100%;
+      width:100%;
+    }
   }
 
   form {
@@ -117,11 +125,32 @@ const Wrapper = styled.section`
     -webkit-transition: all 150ms ease;
     transition: all 150ms ease;
   }
+  .btns{
+    display:flex;
+    align-items:flex-end;
+  }
+  .form{
+    background:#ffffff;
+    padding:20px;
+    input{
+      height:40px;
+      width:100%;
+      margin-bottom:20px;
+      border-radius:7px;
+      border:1px solid #00000026;
+      font-family:${props => props.theme.fam.renner};
+      &::placeholder{
+        color:#000000;
+      }
+    }
+  }
 `;
 
 const CheckoutForm = (props) => {
   const stripeObj = useStripe();
   const elements = useElements();
+  const [clicked, setClicked] = useState(false)
+  const [phoneNumber, setPhoneNumber] = useState()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -154,6 +183,17 @@ const CheckoutForm = (props) => {
       <form onSubmit={handleSubmit}>
         <div className="blur"></div>
         <h1>Book your room : {props.state.current.room.roomName}</h1>
+        <div className="form">
+              <input type="text" placeholder="Full Name" />
+        <input type="email" placeholder="Email" />
+        <input type="text" placeholder="Address" />
+        <PhoneInput
+      placeholder="Phone Number"
+
+      value={phoneNumber}
+      onChange={setPhoneNumber}/>
+        </div>
+    
         <PaymentElement
           options={{
             fields: {
@@ -166,13 +206,15 @@ const CheckoutForm = (props) => {
             },
           }}
         />
-
-        <button type="submit" disabled={!stripeObj || !elements}>
-          Pay Now
+        <div className="btns">
+           <button type="submit" onClick={()=> setClicked(true)} disabled={!stripeObj || !elements}>
+          {clicked ? <SpinningCircles  /> : 'Pay Now'}
         </button>
-        <Link to="/">
+        <Link to="/" onClick={()=> setClicked(false)}>
           <button>Back Home</button>
         </Link>
+        </div>
+       
       </form>
     </Wrapper>
   );
@@ -219,6 +261,7 @@ const StripeSection = ({ props }) => {
           clientSecret: clientSecret,
         }}
       >
+       
         <CheckoutForm clientSecret={clientSecret} state={paramState} />
       </Elements>
     </>

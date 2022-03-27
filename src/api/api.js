@@ -4,7 +4,7 @@ import { startCase } from "lodash";
 const host = "https://lakeviewnodejs.herokuapp.com";
 export const baseUrl = `${host}/api`;
 
-const backendApiKey = "4c2fe7012b3dff54fbbebdcc6635ab67d8ee367f43826852fef3ad3bdc689f53020ef60fac158435703ed49d626a759ef64c76af1a00eb0568dd0e06639280f6863b516080c0ea4e39ab095d32246b296751ccd96de1b2b6398c80bd497c794a49b1434d5f3ba9cd1086c095cf90037d01a6a490073350079e0cc3e313aedd6d"
+const backendApiKey = "13c81ed4f98ee792e3a2910d47b2ff15e28fd8ddc8c62fb1eb746d9751813b58996e6f86631d99f45cd9bfae8ae930f165f075ff3eff427563f6c081a0172baf99acafcf122fc3e9e2e4848dd623cf4284b74eb2760855176bf93d2e1fc62671cb136dc645e81134469844ccf9bbc86938c1884d87a2d7326c1df4dde9609b52"
 const headers = {
   Authorization: `Bearer ${backendApiKey}`,
 };
