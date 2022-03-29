@@ -1,16 +1,16 @@
 import axios from "axios";
 import { startCase } from "lodash";
 
-const host = "https://lakeviewnodejs.herokuapp.com";
+const host = "http://localhost:1337";
 export const baseUrl = `${host}/api`;
 
-const backendApiKey = "13c81ed4f98ee792e3a2910d47b2ff15e28fd8ddc8c62fb1eb746d9751813b58996e6f86631d99f45cd9bfae8ae930f165f075ff3eff427563f6c081a0172baf99acafcf122fc3e9e2e4848dd623cf4284b74eb2760855176bf93d2e1fc62671cb136dc645e81134469844ccf9bbc86938c1884d87a2d7326c1df4dde9609b52"
+const backendApiKey = "9fa2fa21338190c5a2f0bb04a4454d3b09c5eaed9016d8d0dae7aa7dbf1a0d8341d98525a40591833d83ee13e95a134e51b691c5fb0ecf1c0ace28887e3ade198b45831c87770d884b812dc63b3fe5ec1337fdf02ef7904554fd9ab417317523bf9ab00f34a9847721f2b2905319720aa2e185c522b16def4f5166cd136e866c"
 const headers = {
   Authorization: `Bearer ${backendApiKey}`,
 };
 
 axios.defaults.headers = headers;
-
+// axios.defaults.baseURL = baseUrl
 
 async function getRooms() {
   const path = "/rooms?populate=*";

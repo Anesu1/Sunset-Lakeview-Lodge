@@ -11,16 +11,16 @@ import {
 } from "@stripe/react-stripe-js";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
-import { SpinningCircles  } from 'react-loading-icons'
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
-
+import { SpinningCircles } from "react-loading-icons";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import Modal from "react-modal";
 
 const Wrapper = styled.section`
   height: auto;
   width: 100%;
   display: flex;
-  padding:10% 0;
+  padding: 10% 0;
   align-items: center;
   justify-content: center;
   background: linear-gradient(
@@ -88,9 +88,9 @@ const Wrapper = styled.section`
     -webkit-transition: all 150ms ease;
     transition: all 150ms ease;
     margin-top: 10px;
-    svg{
-      height:100%;
-      width:100%;
+    svg {
+      height: 100%;
+      width: 100%;
     }
   }
 
@@ -125,38 +125,73 @@ const Wrapper = styled.section`
     -webkit-transition: all 150ms ease;
     transition: all 150ms ease;
   }
-  .btns{
-    display:flex;
-    align-items:flex-end;
+  .btns {
+    display: flex;
+    align-items: flex-end;
   }
-  .form{
-    background:#ffffff;
-    padding:20px;
-    input{
-      height:40px;
-      width:100%;
-      margin-bottom:20px;
-      border-radius:7px;
-      border:1px solid #00000026;
-      font-family:${props => props.theme.fam.renner};
-      &::placeholder{
-        color:#000000;
+  .form {
+    background: #ffffff;
+    padding: 20px;
+    input {
+      height: 40px;
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 7px;
+      border: 1px solid #00000026;
+      font-family: ${(props) => props.theme.fam.renner};
+      &::placeholder {
+        color: #000000;
       }
     }
   }
 `;
-
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 const CheckoutForm = (props) => {
   const stripeObj = useStripe();
   const elements = useElements();
-  const [clicked, setClicked] = useState(false)
-  const [phoneNumber, setPhoneNumber] = useState()
+  const [clicked, setClicked] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [address, setAddress] = useState("");
+
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalCheckout, setModalCheckOut] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+  function openModalCheckOut() {
+    setModalCheckOut(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // subtitle.style.color = "#f00";
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+    setClicked(false);
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (elements == null) {
       return;
     }
+
+    console.log(address);
+    setClicked(true);
     const payload = await stripeObj.confirmPayment({
       elements: elements,
       redirect: "if_required",
@@ -164,59 +199,90 @@ const CheckoutForm = (props) => {
 
     if (payload.error) {
       console.log(payload.error);
-    } else {
-      const { room, amount } = props.state.current;
-
-      const payload = {
-        data: {
-          room: room.id,
-          checkIn: room.checkIn,
-          checkOut: room.checkOut,
-        },
-      };
-      await createBookingRequest(payload);
+      setClicked(false);
+      return;
     }
+
+    const { room, amount } = props.state.current;
+
+    const bookingPayload = {
+      data: {
+        room: room.id,
+        checkIn: room.checkIn,
+        checkOut: room.checkOut,
+        fullName,
+        phoneNumber,
+        address,
+        email,
+      },
+    };
+    await createBookingRequest(bookingPayload);
+    setClicked(false);
+    openModal();
   };
 
   return (
-    <Wrapper className="my-form">
-      <form onSubmit={handleSubmit}>
-        <div className="blur"></div>
-        <h1>Book your room : {props.state.current.room.roomName}</h1>
-        <div className="form">
-              <input type="text" placeholder="Full Name" />
-        <input type="email" placeholder="Email" />
-        <input type="text" placeholder="Address" />
-        <PhoneInput
-      placeholder="Phone Number"
+    <>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example"
+        ariaHideApp={false}
+      >
+        <div></div>
+      </Modal>
+      <Wrapper className="my-form">
+        <form onSubmit={handleSubmit}>
+          <div className="blur"></div>
+          <h1>Book your room : {props.state.current.room.roomName}</h1>
+          <div className="form">
+            <input
+              type="text"
+              placeholder="Full Name"
+              onChange={(e) => setFullName(e.target.value)}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Address"
+              onChange={(e) => setAddress(e.target.value)}
+            />
+            <PhoneInput
+              placeholder="Phone Number"
+              value={phoneNumber}
+              onChange={setPhoneNumber}
+            />
+          </div>
 
-      value={phoneNumber}
-      onChange={setPhoneNumber}/>
-        </div>
-    
-        <PaymentElement
-          options={{
-            fields: {
-              billingDetails: {
-                name: "auto",
-                email: "auto",
-                address: "auto",
-                phone: "auto",
+          <PaymentElement
+            options={{
+              fields: {
+                billingDetails: {
+                  name: "auto",
+                  email: "auto",
+                  address: "auto",
+                  phone: "auto",
+                },
               },
-            },
-          }}
-        />
-        <div className="btns">
-           <button type="submit" onClick={()=> setClicked(true)} disabled={!stripeObj || !elements}>
-          {clicked ? <SpinningCircles  /> : 'Pay Now'}
-        </button>
-        <Link to="/" onClick={()=> setClicked(false)}>
-          <button>Back Home</button>
-        </Link>
-        </div>
-       
-      </form>
-    </Wrapper>
+            }}
+          />
+          <div className="btns">
+            <button type="submit" disabled={!stripeObj || !elements}>
+              {clicked ? <SpinningCircles /> : "Pay Now"}
+            </button>
+            <Link to="/" onClick={() => setClicked(false)}>
+              <button>Back Home</button>
+            </Link>
+          </div>
+        </form>
+      </Wrapper>
+    </>
   );
 };
 
@@ -261,7 +327,6 @@ const StripeSection = ({ props }) => {
           clientSecret: clientSecret,
         }}
       >
-       
         <CheckoutForm clientSecret={clientSecret} state={paramState} />
       </Elements>
     </>

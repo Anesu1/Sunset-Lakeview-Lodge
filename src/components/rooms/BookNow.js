@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React,{useRef} from "react";
+import React, { useRef } from "react";
 import Paragraph from "../../styled/Paragraph";
 import styled from "styled-components";
 import iconbed from "../../images/icon_bed 1.png";
@@ -20,7 +20,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { SpinningCircles } from 'react-loading-icons'
+import { SpinningCircles } from "react-loading-icons";
 import { useHistory } from "react-router-dom";
 import { KeyboardReturn } from "@material-ui/icons";
 
@@ -230,8 +230,7 @@ const customStyles = {
   },
 };
 
-
-  // Modal.setAppElement('#ele');
+// Modal.setAppElement('#ele');
 
 const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
 
@@ -246,7 +245,7 @@ function BookNow({
   room,
 }) {
   const { id } = room;
-  
+
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalCheckout, setModalCheckOut] = React.useState(false);
@@ -266,7 +265,7 @@ function BookNow({
 
   function closeModal() {
     setIsOpen(false);
-    setClicked(false)
+    setClicked(false);
   }
   function closeCheckModal() {
     setModalCheckOut(false);
@@ -306,12 +305,12 @@ function BookNow({
     let total = 0;
     if (days == null || days === undefined) {
       total = price + kids * 35;
-      setTotalAmount(total);
+      setTotalAmount(Math.ceil(total));
       return;
     }
     total = price + kids * 35;
     total = total + days * price;
-    setTotalAmount(total);
+    setTotalAmount(Math.ceil(total));
   };
 
   function formatDate(date) {
@@ -323,7 +322,7 @@ function BookNow({
     // Slug should be the room id;
     const checkIn = formatDate(startDate);
     const checkOut = formatDate(endDate);
- setClicked(true)
+    setClicked(true);
     const available = await checkRoomAvailability(checkIn, checkOut, id);
     setIsAvailable(available);
 
@@ -339,7 +338,10 @@ function BookNow({
       },
     };
 
-    if (isAvailable) history.replace("/checkout", state);
+    if (isAvailable) {
+      setClicked(false);
+      history.replace("/checkout", state);
+    }
     //  Available variable should be true or false
 
     // if false, the client should be shown a message that the room is not available for booking (already booked)
@@ -358,9 +360,7 @@ function BookNow({
     calculateTotal();
   });
 
-  const handleClick = () =>{
-   
-  }
+  const handleClick = () => {};
   return (
     <WrapperBook id="details">
       <div className="book">
@@ -397,7 +397,6 @@ function BookNow({
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        
         contentLabel="Example"
         ariaHideApp={false}
       >
@@ -468,7 +467,7 @@ function BookNow({
               </div>
             </form>{" "}
             <button onClick={proceed} className="but">
-              {clicked ?  <SpinningCircles />:`Proceed`}
+              {clicked ? <SpinningCircles /> : `Proceed`}
             </button>
           </div>
         </div>
