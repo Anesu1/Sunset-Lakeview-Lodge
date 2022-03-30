@@ -318,7 +318,8 @@ function BookNow({
   }
 
   // call this method when the proceed button is pressed
-  const proceed = async () => {
+  const proceed = async (event) => {
+    event.preventDefault();
     // Slug should be the room id;
     const checkIn = formatDate(startDate);
     const checkOut = formatDate(endDate);
@@ -342,6 +343,8 @@ function BookNow({
       setClicked(false);
       history.replace("/checkout", state);
     }
+    setClicked(false);
+
     //  Available variable should be true or false
 
     // if false, the client should be shown a message that the room is not available for booking (already booked)
@@ -401,76 +404,77 @@ function BookNow({
         ariaHideApp={false}
       >
         <AiOutlineCloseCircle onClick={closeModal} />
+        <form onSubmit={proceed}>
+          <div className="form" id="form">
+            <div className="nameprize">
+              <h1>{roomName}</h1>
+              <span>${price}</span>
+            </div>
 
-        <div className="form" id="form">
-          <div className="nameprize">
-            <h1>{roomName}</h1>
-            <span>${price}</span>
-          </div>
-
-          <div className="blur"></div>
-          <div className="form-inner">
-            <form action="">
-              <Date
-                startDate={startDate}
-                endDate={endDate}
-                setStartDate={setStartDate}
-                setEndDate={setEndDate}
-                calculateTotal={calculateTotal}
-              />
-              <div className="people">
-                <div className="people-inner">
-                  <label htmlFor="">
-                    Adults <span onChange={Total}>{adult}</span>
-                  </label>
-                  <div className="icon" onClick={() => setAdult(adult - 1)}>
-                    <BiMinusCircle />
+            <div className="blur"></div>
+            <div className="form-inner">
+              <form action="">
+                <Date
+                  startDate={startDate}
+                  endDate={endDate}
+                  setStartDate={setStartDate}
+                  setEndDate={setEndDate}
+                  calculateTotal={calculateTotal}
+                />
+                <div className="people">
+                  <div className="people-inner">
+                    <label htmlFor="">
+                      Adults <span onChange={Total}>{adult}</span>
+                    </label>
+                    <div className="icon" onClick={() => setAdult(adult - 1)}>
+                      <BiMinusCircle />
+                    </div>
+                    <div className="icon" onClick={() => setAdult(adult + 1)}>
+                      <BiPlusCircle />
+                    </div>
                   </div>
-                  <div className="icon" onClick={() => setAdult(adult + 1)}>
-                    <BiPlusCircle />
+                  <div className="people-inner">
+                    <label htmlFor="">
+                      Kids <span onChange={Total}>{kids}</span>
+                    </label>
+                    <div
+                      className="icon"
+                      onClick={() => {
+                        setKids(kids - 1);
+                        calculateTotal();
+                      }}
+                    >
+                      <BiMinusCircle />
+                    </div>
+                    <div
+                      className="icon"
+                      onClick={() => {
+                        setKids(kids + 1);
+                        calculateTotal();
+                      }}
+                    >
+                      <BiPlusCircle />
+                    </div>
                   </div>
                 </div>
-                <div className="people-inner">
-                  <label htmlFor="">
-                    Kids <span onChange={Total}>{kids}</span>
-                  </label>
-                  <div
-                    className="icon"
-                    onClick={() => {
-                      setKids(kids - 1);
-                      calculateTotal();
-                    }}
-                  >
-                    <BiMinusCircle />
-                  </div>
-                  <div
-                    className="icon"
-                    onClick={() => {
-                      setKids(kids + 1);
-                      calculateTotal();
-                    }}
-                  >
-                    <BiPlusCircle />
-                  </div>
+                <div className="total">
+                  <span> Total Price: ${totalAmout}</span>
                 </div>
-              </div>
-              <div className="total">
-                <span> Total Price: ${totalAmout}</span>
-              </div>
-              <div className="total" style={{ marginBottom: 40 + "px" }}>
-                <span style={{ color: "red" }}>
-                  {" "}
-                  {isAvailable === false && isAvailable !== undefined
-                    ? "The Room Is Not Available For Booking at the moment."
-                    : ""}
-                </span>
-              </div>
-            </form>{" "}
-            <button onClick={proceed} className="but">
-              {clicked ? <SpinningCircles /> : `Proceed`}
-            </button>
+                <div className="total" style={{ marginBottom: 40 + "px" }}>
+                  <span style={{ color: "red" }}>
+                    {" "}
+                    {isAvailable === false && isAvailable !== undefined
+                      ? "The Room Is Not Available For Booking at the moment."
+                      : ""}
+                  </span>
+                </div>
+              </form>{" "}
+              <button type="submit" className="but">
+                {clicked ? <SpinningCircles /> : `Proceed`}
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
       </Modal>
     </WrapperBook>
   );
