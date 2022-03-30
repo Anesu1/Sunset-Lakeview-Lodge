@@ -287,7 +287,7 @@ const CheckoutForm = (props) => {
 };
 
 const publishablekey =
-  "pk_test_51KVuGuDrnLGrJMF2iGHdpltwQAQ4calwlB6lTUkZED8Gq8q7gI4vu6I8K4nIL1vnz7tb491KDPKTVxbz6oKG3b0500N6MwQghc";
+  "pk_live_51JtbTZCBx8oxjz2RQHKxcRt3IdgUyfGjfMvhD6Tsix61MTrQ5m4IZuSpvbmAirzOtu7iFp6xMpYzGfC597LtFwR600t4aG8HQV";
 
 const stripePromise = loadStripe(publishablekey);
 
