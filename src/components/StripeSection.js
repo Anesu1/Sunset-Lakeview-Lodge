@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { createSecretToken, createBookingRequest } from "./../api/api";
-import {FcOk, FcHighPriority} from 'react-icons/fc'
+import { FcOk, FcHighPriority } from "react-icons/fc";
 import {
   CardElement,
   Elements,
@@ -190,10 +190,10 @@ const CheckoutForm = (props) => {
     if (elements == null) {
       return;
     }
-    
+
     console.log(address);
     setClicked(true);
-    setIsOpen(true)
+    setIsOpen(true);
     const payload = await stripeObj.confirmPayment({
       elements: elements,
       redirect: "if_required",
@@ -202,7 +202,7 @@ const CheckoutForm = (props) => {
     if (payload.error) {
       console.log(payload.error);
       setClicked(false);
-      setBookStatus(false)
+      setBookStatus(false);
       return;
     }
 
@@ -221,11 +221,10 @@ const CheckoutForm = (props) => {
     };
     await createBookingRequest(bookingPayload);
     setClicked(false);
-    setBookStatus(true)
+    setBookStatus(true);
     openModal();
-
   };
- setIsOpen(true)
+  setIsOpen(true);
   return (
     <>
       <Modal
@@ -236,9 +235,17 @@ const CheckoutForm = (props) => {
         contentLabel="Example"
         ariaHideApp={false}
       >
-       
         <div>
-          {bookStatus ?  (<h3>successifully Booked {props.state.current.room.roomName} <FcOk /></h3>) :  (<h3>Unable to make a booking for {props.state.current.room.roomName} at the moment <FcHighPriority /></h3>)}
+          {bookStatus ? (
+            <h3>
+              successifully Booked {props.state.current.room.roomName} <FcOk />
+            </h3>
+          ) : (
+            <h3>
+              Unable to make a booking for {props.state.current.room.roomName}{" "}
+              at the moment <FcHighPriority />
+            </h3>
+          )}
         </div>
       </Modal>
       <Wrapper className="my-form">
@@ -321,7 +328,7 @@ const StripeSection = ({ props }) => {
       amount: paramState.current.amount,
       currency: "usd",
     }).then((secret) => setClientSecret(secret));
-  });
+  }, [clientSecret, location.state]);
 
   if (clientSecret === "") {
     return <div></div>;
