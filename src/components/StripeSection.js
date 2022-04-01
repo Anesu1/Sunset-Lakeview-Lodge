@@ -167,6 +167,7 @@ const CheckoutForm = (props) => {
   const [bookStatus, setBookStatus] = useState();
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalCheckout, setModalCheckOut] = React.useState(false);
+  const [errorCode, setErrorCode] = useState("");
 
   function openModal() {
     setIsOpen(true);
@@ -203,6 +204,7 @@ const CheckoutForm = (props) => {
       console.log(payload.error);
       setClicked(false);
       setBookStatus(false);
+      setErrorCode(payload.error.code);
       return;
     }
 
@@ -223,8 +225,8 @@ const CheckoutForm = (props) => {
     setClicked(false);
     setBookStatus(true);
     openModal();
+    setIsOpen(true);
   };
-  setIsOpen(true);
   return (
     <>
       <Modal
@@ -244,6 +246,8 @@ const CheckoutForm = (props) => {
             <h3>
               Unable to make a booking for {props.state.current.room.roomName}{" "}
               at the moment <FcHighPriority />
+              {"\n"}
+              Code: {errorCode}
             </h3>
           )}
         </div>
@@ -328,7 +332,7 @@ const StripeSection = ({ props }) => {
       amount: paramState.current.amount,
       currency: "usd",
     }).then((secret) => setClientSecret(secret));
-  }, [clientSecret, location.state]);
+  }, []);
 
   if (clientSecret === "") {
     return <div></div>;
