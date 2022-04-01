@@ -81,6 +81,7 @@ function Contact() {
         <div className="contact-item">
           <h3>RESERVATION</h3>
           <Paragraph>+263 7 123 456 789</Paragraph>
+          <Paragraph>+41792614559</Paragraph>
           <Paragraph>reservations@sunsetlakeviewlodge.com</Paragraph>
         </div>
         <form action="">

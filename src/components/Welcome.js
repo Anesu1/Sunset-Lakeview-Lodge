@@ -102,8 +102,8 @@ function Welcome() {
         </Paragraph>
       </div>
       <div className="pix">
-        <img src="./imgs/welcomeone.png" className="welcomeone" alt="" />
-        <img src="./imgs/welcometwo.png" className="welcometwo" alt="" />
+        <img src="./imgs/gall (15).jpeg" className="welcomeone" alt="" />
+        <img src="./imgs/gall (17).jpeg" className="welcometwo" alt="" />
         <Box small="Located" text="About just 3km from the Zambian boarder, from the Kariba Airport its just 20 minutes. " textTwo="Sunset Lakeview Lodge is the perfect place to be." />
       </div>
       <h1>Sunset Lakeview Lodge</h1>

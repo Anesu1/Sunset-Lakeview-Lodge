@@ -96,6 +96,8 @@ function Gallery() {
         <img src={galleryd} alt="" />
         <img src={animal10} alt="" />
         <img src={galleryf} alt="" />
+        <img src="./imgs/gall (2).jpeg" alt="" />
+        <img src="./imgs/gall (9).jpeg" alt="" />
         <img src={galleryg} alt="" />
         <img src={galleryh} alt="" />
         <img src={animal3} alt="" />
@@ -107,12 +109,16 @@ function Gallery() {
         <img src={gallerye} alt="" />
         <img src={animal7} alt="" />
         <img src={pool} alt="" />
+        <img src="./imgs/gall (13).jpeg" alt="" />
+        <img src="./imgs/gall (8).jpeg" alt="" />
         <img src={gallerya} alt="" />
         <img src={pool1} alt="" />
         <img src={animal8} alt="" />
         <img src={animal11} alt="" />
         <img src={animal12} alt="" />
         <img src={animal13} alt="" />
+        <img src="./imgs/gall (3).jpeg" alt="" />
+        <img src="./imgs/gall (14).jpeg" alt="" />
       </Slider>
     </GalleryWrapper>
   );

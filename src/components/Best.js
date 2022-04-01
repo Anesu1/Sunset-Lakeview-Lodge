@@ -81,7 +81,7 @@ function Best() {
             </div>
             <div className="best-inner">
                 <Heading>The Best Luxury Real <br /> Estate in Kariba</Heading>
-                <img src="./imgs/HP Sunsetlakeview/HP Sunsetlakeview/Pool/Pool2.jpg" alt="" />
+                <img src="./imgs/gall (2).jpeg" alt="" />
                 <Box small="Place" medium="816 Mica Point Kariba"/>
             </div>
         </Wrapper>

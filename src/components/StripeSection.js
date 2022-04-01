@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { createSecretToken, createBookingRequest } from "./../api/api";
+import {FcOk, FcHighPriority} from 'react-icons/fc'
 import {
   CardElement,
   Elements,
@@ -163,7 +164,7 @@ const CheckoutForm = (props) => {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
-
+  const [bookStatus, setBookStatus] = useState();
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [modalCheckout, setModalCheckOut] = React.useState(false);
 
@@ -189,9 +190,10 @@ const CheckoutForm = (props) => {
     if (elements == null) {
       return;
     }
-
+    
     console.log(address);
     setClicked(true);
+    setIsOpen(true)
     const payload = await stripeObj.confirmPayment({
       elements: elements,
       redirect: "if_required",
@@ -200,6 +202,7 @@ const CheckoutForm = (props) => {
     if (payload.error) {
       console.log(payload.error);
       setClicked(false);
+      setBookStatus(false)
       return;
     }
 
@@ -218,9 +221,11 @@ const CheckoutForm = (props) => {
     };
     await createBookingRequest(bookingPayload);
     setClicked(false);
+    setBookStatus(true)
     openModal();
-  };
 
+  };
+ setIsOpen(true)
   return (
     <>
       <Modal
@@ -231,7 +236,10 @@ const CheckoutForm = (props) => {
         contentLabel="Example"
         ariaHideApp={false}
       >
-        <div></div>
+       
+        <div>
+          {bookStatus ?  (<h3>successifully Booked {props.state.current.room.roomName} <FcOk /></h3>) :  (<h3>Unable to make a booking for {props.state.current.room.roomName} at the moment <FcHighPriority /></h3>)}
+        </div>
       </Modal>
       <Wrapper className="my-form">
         <form onSubmit={handleSubmit}>

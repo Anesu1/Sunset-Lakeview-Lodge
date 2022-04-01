@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Paragraph from './Paragraph';
+import { Link , animateScroll as scroll } from "react-scroll";
 
 const Wrapper = styled.div`
     background:${props => props.theme.color.green};
@@ -40,6 +41,9 @@ const Wrapper = styled.div`
         margin:0;
         line-height:1.3;
     }
+    a{
+        cursor:pointer;
+    }
 `
 
 function Box({large, medium, small, text, link, linkText, textTwo}) {
@@ -50,7 +54,10 @@ function Box({large, medium, small, text, link, linkText, textTwo}) {
             <h4>{small}</h4>
            <Paragraph>{text}</Paragraph>
            <Paragraph>{textTwo}</Paragraph>
-           <a href={link}>{linkText}</a>
+           <Link activeClass="active"
+           spy={true}
+           smooth={true}
+           duration={500} to={link}>{linkText}</Link>
         </Wrapper>
     )
 }

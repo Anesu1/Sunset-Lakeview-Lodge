@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import Box from '../styled/Box';
 import Heading from '../styled/Heading';
+import { Link , animateScroll as scroll } from "react-scroll";
 
 const ProvideWrapper = styled.section`
     padding:5%;
@@ -139,12 +140,12 @@ function Provide() {
           </Heading>
           <div className="img">
             <img src="./imgs/BedroomsMainhouse/BedRoomLakeview1Bild2.JPG" alt="" />
-            <Box large="Book With Us" linkText="Get In Touch" />
+            <Box large="Book With Us" link="rooms" linkText="Get In Touch" />
           </div>
         </div>
         <div className="provide-item">
-          <img src="./imgs/HP Sunsetlakeview/HP Sunsetlakeview/Garden/sunset1.jpg" alt="" />
-          <Box large={`Work With Us`} linkText="Get In Touch" />
+          <img src="./imgs/gall (11).jpeg" alt="" />
+          <Box large={`Work With Us`} link="contact" linkText="Get In Touch" />
         </div>
       </ProvideWrapper>
     );
