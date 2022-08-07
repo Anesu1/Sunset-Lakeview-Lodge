@@ -1,10 +1,10 @@
 import axios from "axios";
 import { startCase } from "lodash";
 
-const host = "http://172.93.101.140:1337";
+const host = "http://api.sunsetlakeviewlodge.com/";
 export const baseUrl = `${host}/api`;
 
-const backendApiKey = "496a66042d84b37b70869f0896d3591fd420381ccca5c476783feae3922f2d3618638cbbf0d74c3db2876c6630ee378055e585e51d96beaa360ccf51221a77d1be601f457ddc60f19087fb9fd87388bf44923b5e6d6662004c7cbc0e9092bd3cc0628a13b2d63a667365ddb5aaa829d722efc188732f16cf8255c6c627e51f9e";
+const backendApiKey = "0cb985e992037c15b1e6a8cd24dfd169ae2076a9cf3dd83d9aa592a10a1567d2d7a11fe8013fee473ea68b1008c260e0fc78c2e8b3983bcf2a3bd05094b595d2c4acd774e65690c0cc794c0f1003848299438b7742a22fe40ffa7fec7340a2dc8634da82e401ff7478a95e0516006a16894d78717eb6772a8523ac22d4e6a48a";
 
 const headers = {
   Authorization: `Bearer ${backendApiKey}`,
